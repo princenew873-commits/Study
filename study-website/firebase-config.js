@@ -1,17 +1,47 @@
-// FIREBASE CONFIG
+// Firebase SDK
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+// Firebase Config
 
 const firebaseConfig = {
 
-apiKey:"YOUR_API_KEY",
+apiKey:
+"AIzaSyAsj7-5zddomTDReEEdF5uPugtlu3O4LBg",
 
-authDomain:"YOUR_DOMAIN",
+authDomain:
+"website-9f590.firebaseapp.com",
 
-projectId:"YOUR_PROJECT_ID",
+projectId:
+"website-9f590",
 
-storageBucket:"YOUR_BUCKET",
+storageBucket:
+"website-9f590.firebasestorage.app",
 
-messagingSenderId:"YOUR_ID",
+messagingSenderId:
+"158495337912",
 
-appId:"YOUR_APP_ID"
+appId:
+"1:158495337912:web:93f185d825c7eafd69734d",
+
+measurementId:
+"G-ZC7HMCFFPK"
 
 };
+
+// Initialize Firebase
+
+const app =
+initializeApp(firebaseConfig);
+
+// Auth
+
+const auth = getAuth(app);
+
+export { auth };

@@ -851,3 +851,237 @@ gap:20px;
 }
 
 }
+
+/* DASHBOARD */
+
+.dashboard-bg{
+
+position:fixed;
+
+width:100%;
+
+height:100%;
+
+background:
+linear-gradient(
+135deg,
+#020617,
+#0f172a,
+#1e293b,
+#020617
+);
+
+background-size:400% 400%;
+
+animation:dashBg 12s ease infinite;
+
+z-index:-2;
+}
+
+@keyframes dashBg{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* FLOATING BOOKS */
+
+.floating-books span{
+
+position:absolute;
+
+font-size:40px;
+
+opacity:0.25;
+
+animation:floatBook 8s ease infinite;
+}
+
+.floating-books span:nth-child(1){
+
+top:10%;
+left:10%;
+}
+
+.floating-books span:nth-child(2){
+
+top:20%;
+right:10%;
+}
+
+.floating-books span:nth-child(3){
+
+bottom:15%;
+left:20%;
+}
+
+.floating-books span:nth-child(4){
+
+bottom:10%;
+right:20%;
+}
+
+.floating-books span:nth-child(5){
+
+top:50%;
+left:50%;
+}
+
+@keyframes floatBook{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+/* WELCOME */
+
+.welcome-box{
+
+margin:40px auto;
+
+padding:40px;
+
+border-radius:25px;
+
+max-width:800px;
+
+text-align:center;
+}
+
+.welcome-box h2{
+
+font-size:45px;
+
+margin-bottom:15px;
+}
+
+.welcome-box p{
+
+color:#d1d5db;
+
+font-size:18px;
+}
+
+/* GRID */
+
+.dashboard-grid{
+
+padding:40px;
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:25px;
+}
+
+.dashboard-card{
+
+padding:35px;
+
+border-radius:25px;
+
+transition:0.3s;
+
+text-align:center;
+}
+
+.dashboard-card:hover{
+
+transform:translateY(-10px)
+scale(1.02);
+}
+
+.dashboard-card h2{
+
+margin-bottom:15px;
+}
+
+.dashboard-card p{
+
+margin-bottom:25px;
+
+color:#d1d5db;
+}
+
+.dashboard-card a{
+
+text-decoration:none;
+
+background:#38bdf8;
+
+padding:12px 22px;
+
+border-radius:12px;
+
+color:black;
+
+font-weight:bold;
+
+display:inline-block;
+}
+
+/* FEATURES */
+
+.feature-section{
+
+padding:40px;
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:25px;
+}
+
+.feature-box{
+
+padding:30px;
+
+border-radius:25px;
+
+text-align:center;
+}
+
+.feature-box h3{
+
+margin-bottom:15px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.welcome-box h2{
+
+font-size:35px;
+}
+
+.dashboard-grid{
+
+padding:20px;
+}
+
+}

@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Signup</title>
 
@@ -12,27 +17,110 @@ href="../style.css">
 
 <body>
 
-<div class="animated-bg"></div>
+<div class="bg"></div>
 
-<div class="form-container glass">
+<div class="auth-box">
 
-<h2>User Signup</h2>
+<h1>Create Account 🚀</h1>
+
+<p>
+Join Chintu Study Hub
+</p>
 
 <input
 type="email"
+id="email"
 placeholder="Enter Email"
 >
 
 <input
 type="password"
+id="password"
 placeholder="Enter Password"
 >
 
-<button>
-Signup
+<button id="signupBtn">
+
+Create Account
+
 </button>
 
+<p class="bottom-text">
+
+Already have account?
+
+<a href="login.html">
+Login
+</a>
+
+</p>
+
 </div>
+
+<script type="module">
+
+import { auth }
+from "../firebase-config.js";
+
+import {
+
+createUserWithEmailAndPassword
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const signupBtn =
+document.getElementById("signupBtn");
+
+signupBtn.addEventListener(
+"click",
+
+()=>{
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+if(password.length < 6){
+
+alert(
+"Password minimum 6 characters"
+);
+
+return;
+
+}
+
+createUserWithEmailAndPassword(
+auth,
+email,
+password
+)
+
+.then(()=>{
+
+alert(
+"Signup Successful ✅"
+);
+
+window.location.href =
+"login.html";
+
+})
+
+.catch((error)=>{
+
+alert(error.message);
+
+});
+
+});
+
+</script>
 
 </body>
 </html>

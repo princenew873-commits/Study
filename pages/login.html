@@ -8,7 +8,11 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Login</title>
+<title>
+
+Login
+
+</title>
 
 <link rel="stylesheet"
 href="../style.css">
@@ -17,13 +21,21 @@ href="../style.css">
 
 <body>
 
-<div class="bg"></div>
+<div class="dashboard-bg"></div>
 
-<div class="auth-box">
+<div class="auth-box glass">
 
-<h1>Welcome Back 👋</h1>
+<h1>
 
-<p>Login to continue</p>
+Welcome Back 👋
+
+</h1>
+
+<p>
+
+Login to continue
+
+</p>
 
 <input
 type="email"
@@ -48,7 +60,9 @@ Login
 Don't have account?
 
 <a href="signup.html">
+
 Signup
+
 </a>
 
 </p>
@@ -100,26 +114,16 @@ userCredential.user;
 const adminUID =
 "eYqfCc489Qf3xMiaLotjTRYAGYR2";
 
-/* DEBUG */
-
-alert(
-"YOUR UID:\n\n" + user.uid
-);
-
-/* CHECK */
+/* ADMIN CHECK */
 
 if(
 user.uid === adminUID
 ){
 
-alert("ADMIN DETECTED");
-
 window.location.href =
 "./admin-dashboard.html";
 
 }else{
-
-alert("STUDENT DETECTED");
 
 window.location.href =
 "../dashboard.html";

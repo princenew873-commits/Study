@@ -23,9 +23,7 @@ href="../style.css">
 
 <h1>Welcome Back 👋</h1>
 
-<p>
-Login to continue
-</p>
+<p>Login to continue</p>
 
 <input
 type="email"
@@ -57,21 +55,29 @@ Signup
 
 </div>
 
-  <script type="module">
+<script type="module">
 
 import { auth }
 from "../firebase-config.js";
 
 import {
+
 signInWithEmailAndPassword
+
 }
+
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* LOGIN BUTTON */
 
 const loginBtn =
 document.getElementById("loginBtn");
 
-loginBtn.onclick = async ()=>{
+loginBtn.addEventListener(
+"click",
+
+async ()=>{
 
 const email =
 document.getElementById("email").value;
@@ -80,6 +86,8 @@ const password =
 document.getElementById("password").value;
 
 try{
+
+/* FIREBASE LOGIN */
 
 const userCredential =
 await signInWithEmailAndPassword(
@@ -91,14 +99,12 @@ password
 const user =
 userCredential.user;
 
-alert(
-"UID: " + user.uid
-);
+/* ADMIN UID */
 
 const adminUID =
 "eYqfCc489Qf3xMiaLotjTRYAGYR2";
 
-/* ADMIN */
+/* CHECK */
 
 if(user.uid === adminUID){
 
@@ -118,9 +124,9 @@ alert(error.message);
 
 }
 
-};
+});
 
-  </script>
+</script>
 
 </body>
 </html>

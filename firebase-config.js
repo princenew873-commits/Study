@@ -1,18 +1,24 @@
 import { initializeApp }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-
 getAuth
-
 }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-/* FIREBASE CONFIG */
+import {
+getFirestore
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+getStorage
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig = {
 
@@ -32,23 +38,26 @@ messagingSenderId:
 "158495337912",
 
 appId:
-"1:158495337912:web:93f185d825c7eafd69734d",
-
-measurementId:
-"G-ZC7HMCFFPK"
+"1:158495337912:web:93f185d825c7eafd69734d"
 
 };
-
-/* INITIALIZE */
 
 const app =
 initializeApp(firebaseConfig);
 
-/* AUTH */
-
 const auth =
 getAuth(app);
 
-/* EXPORT */
+const db =
+getFirestore(app);
 
-export { auth };
+const storage =
+getStorage(app);
+
+export {
+
+auth,
+db,
+storage
+
+};

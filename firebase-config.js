@@ -1,14 +1,18 @@
-// Firebase SDK
-
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-getAuth
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Firebase Config
+getAuth
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* FIREBASE CONFIG */
 
 const firebaseConfig = {
 
@@ -35,13 +39,16 @@ measurementId:
 
 };
 
-// Initialize Firebase
+/* INITIALIZE */
 
 const app =
 initializeApp(firebaseConfig);
 
-// Auth
+/* AUTH */
 
-const auth = getAuth(app);
+const auth =
+getAuth(app);
+
+/* EXPORT */
 
 export { auth };

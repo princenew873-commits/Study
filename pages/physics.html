@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,9 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
+
 Physics Resources
+
 </title>
 
 <link rel="stylesheet"
@@ -43,17 +46,23 @@ rel="stylesheet">
 <nav>
 
 <h1 class="logo">
+
 Physics Resources
+
 </h1>
 
 <div class="nav-links">
 
 <a href="class10.html">
+
 Back
+
 </a>
 
 <a href="../dashboard.html">
+
 Dashboard
+
 </a>
 
 </div>
@@ -65,25 +74,109 @@ Dashboard
 <section class="welcome-box glass">
 
 <h2>
+
 Physics Study Material ⚡
+
 </h2>
 
 <p>
-Notes, PYQs, Sample Papers and Expert Videos
+
+Access notes, PYQs, sample papers and lectures.
+
 </p>
 
 </section>
 
-<!-- MATERIALS -->
+<!-- CONTENT GRID -->
 
-<section
-class="dashboard-grid"
-id="materialsContainer">
+<section class="dashboard-grid">
+
+<!-- NOTES -->
+
+<div class="dashboard-card glass">
+
+<h2>📘 Notes</h2>
+
+<div id="notesContainer">
+
+</div>
+
+</div>
+
+<!-- SHORT NOTES -->
+
+<div class="dashboard-card glass">
+
+<h2>📝 Short Notes</h2>
+
+<div id="shortNotesContainer">
+
+</div>
+
+</div>
+
+<!-- PYQ -->
+
+<div class="dashboard-card glass">
+
+<h2>📄 PYQs</h2>
+
+<div id="pyqContainer">
+
+</div>
+
+</div>
+
+<!-- SAMPLE PAPER -->
+
+<div class="dashboard-card glass">
+
+<h2>📑 Sample Papers</h2>
+
+<div id="sampleContainer">
+
+</div>
+
+</div>
+
+<!-- VIDEOS -->
+
+<div class="dashboard-card glass">
+
+<h2>🎥 Videos</h2>
+
+<div id="videoContainer">
+
+</div>
+
+</div>
+
+<!-- QUIZ -->
+
+<div class="dashboard-card glass">
+
+<h2>🧠 MCQ Quiz</h2>
+
+<p>
+
+Practice important MCQs.
+
+</p>
+
+<a href="quiz.html">
+
+Start
+
+</a>
+
+</div>
 
 </section>
 
 <footer>
+
 Made with ❤️ by Chintu
+
 </footer>
 
 <!-- FIREBASE SCRIPT -->
@@ -94,56 +187,91 @@ import { db }
 from "../firebase-config.js";
 
 import {
+
 collection,
 getDocs,
 query,
 where
+
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const container =
-document.getElementById(
-"materialsContainer"
-);
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-async function loadPhysicsMaterials(){
+async function loadMaterials(){
 
 const q = query(
+
 collection(db,"materials"),
-where("subject","==","Physics")
+
+where("subject","==","Physics"),
+
+where("className","==","Class 10")
+
 );
 
 const querySnapshot =
 await getDocs(q);
 
-container.innerHTML = "";
-
 querySnapshot.forEach((doc)=>{
 
 const data = doc.data();
 
+let containerId = "";
+
+if(data.category === "Notes"){
+
+containerId = "notesContainer";
+
+}
+
+else if(data.category === "Short Notes"){
+
+containerId = "shortNotesContainer";
+
+}
+
+else if(data.category === "PYQ"){
+
+containerId = "pyqContainer";
+
+}
+
+else if(data.category === "Sample Paper"){
+
+containerId = "sampleContainer";
+
+}
+
+else if(data.category === "Videos"){
+
+containerId = "videoContainer";
+
+}
+
+const container =
+document.getElementById(containerId);
+
 container.innerHTML += `
 
-<div class="dashboard-card glass">
+<div style="margin-top:15px;">
 
 <img
 src="${data.thumbnail}"
 style="
 width:100%;
-height:180px;
+height:150px;
 object-fit:cover;
-border-radius:15px;
-margin-bottom:15px;
+border-radius:10px;
+margin-bottom:10px;
 "
 >
 
-<h2>
-${data.title}
-</h2>
+<h3>
 
-<p>
-${data.category}
-</p>
+${data.title}
+
+</h3>
 
 <a
 href="${data.pdfLink}"
@@ -162,9 +290,10 @@ Open
 
 }
 
-loadPhysicsMaterials();
+loadMaterials();
 
 </script>
 
 </body>
 </html>
+```

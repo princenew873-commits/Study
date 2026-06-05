@@ -57,17 +57,14 @@ Signup
 
 </div>
 
-<script type="module">
+  <script type="module">
 
 import { auth }
 from "../firebase-config.js";
 
 import {
-
 signInWithEmailAndPassword
-
 }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -96,12 +93,16 @@ password
 const user =
 userCredential.user;
 
+/* YOUR ADMIN UID */
+
 const adminUID =
 "eYqfCc489Qf3xMiaLotjTRYAGYR2";
 
 alert(
-"Login Successful ✅"
+"Logged in UID: " + user.uid
 );
+
+/* ADMIN LOGIN */
 
 if(
 user.uid === adminUID
@@ -127,7 +128,7 @@ alert(error.message);
 
 });
 
-</script>
+  </script>
 
 </body>
 </html>

@@ -96,17 +96,25 @@ password
 const user =
 userCredential.user;
 
+/* YOUR ADMIN EMAIL */
+
+const adminEmail =
+"admin@gmail.com";
+
 alert(
-"Login Successful ✅"
+"Logged in as: " + user.email
 );
 
+/* ADMIN CHECK */
+
 if(
-user.email ===
-"admin@gmail.com"
+user.email.trim().toLowerCase()
+===
+adminEmail.trim().toLowerCase()
 ){
 
 window.location.href =
-"../pages/admin-dashboard.html";
+"./admin-dashboard.html";
 
 }else{
 

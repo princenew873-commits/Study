@@ -91,14 +91,31 @@ email,
 password
 )
 
-.then(()=>{
+.then((userCredential)=>{
+
+const user =
+userCredential.user;
 
 alert(
 "Login Successful ✅"
 );
 
+/* ADMIN CHECK */
+
+if(
+user.email ===
+"princekgupta00@gmail.com"
+){
+
+window.location.href =
+"admin-dashboard.html";
+
+}else{
+
 window.location.href =
 "../dashboard.html";
+
+}
 
 })
 

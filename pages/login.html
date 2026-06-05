@@ -69,8 +69,6 @@ signInWithEmailAndPassword
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-/* LOGIN BUTTON */
-
 const loginBtn =
 document.getElementById("loginBtn");
 
@@ -87,8 +85,6 @@ document.getElementById("password").value;
 
 try{
 
-/* FIREBASE LOGIN */
-
 const userCredential =
 await signInWithEmailAndPassword(
 auth,
@@ -104,27 +100,32 @@ userCredential.user;
 const adminUID =
 "eYqfCc489Qf3xMiaLotjTRYAGYR2";
 
-/* CHECK */
+/* DEBUG */
 
 alert(
 "YOUR UID:\n\n" + user.uid
 );
 
-if(user.uid === adminUID){
+/* CHECK */
 
-alert("ADMIN");
+if(
+user.uid === adminUID
+){
+
+alert("ADMIN DETECTED");
 
 window.location.href =
 "./admin-dashboard.html";
 
 }else{
 
-alert("STUDENT");
+alert("STUDENT DETECTED");
 
 window.location.href =
 "../dashboard.html";
 
 }
+
 }catch(error){
 
 alert(error.message);

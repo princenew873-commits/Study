@@ -27,15 +27,9 @@ href="../style.css">
 
 <h1>
 
-Admin Dashboard 🚀
+Admin Upload Panel 🚀
 
 </h1>
-
-<p>
-
-Upload Study Material
-
-</p>
 
 <!-- TITLE -->
 
@@ -45,45 +39,37 @@ id="title"
 placeholder="PDF Title"
 >
 
+<!-- THUMBNAIL -->
+
+<input
+type="text"
+id="thumbnail"
+placeholder="Thumbnail Image URL"
+>
+
+<!-- PDF LINK -->
+
+<input
+type="text"
+id="pdfLink"
+placeholder="PDF Link"
+>
+
 <!-- CLASS -->
 
 <select id="className">
 
-<option value="Class 10">
+<option>Class 10</option>
 
-Class 10
+<option>Class 11</option>
 
-</option>
+<option>Class 12</option>
 
-<option value="Class 11">
+<option>JEE</option>
 
-Class 11
+<option>NEET</option>
 
-</option>
-
-<option value="Class 12">
-
-Class 12
-
-</option>
-
-<option value="JEE">
-
-JEE
-
-</option>
-
-<option value="NEET">
-
-NEET
-
-</option>
-
-<option value="NDA">
-
-NDA
-
-</option>
+<option>NDA</option>
 
 </select>
 
@@ -91,35 +77,15 @@ NDA
 
 <select id="subject">
 
-<option value="Physics">
+<option>Physics</option>
 
-Physics
+<option>Chemistry</option>
 
-</option>
+<option>Maths</option>
 
-<option value="Chemistry">
+<option>Biology</option>
 
-Chemistry
-
-</option>
-
-<option value="Maths">
-
-Maths
-
-</option>
-
-<option value="Biology">
-
-Biology
-
-</option>
-
-<option value="English">
-
-English
-
-</option>
+<option>English</option>
 
 </select>
 
@@ -127,42 +93,21 @@ English
 
 <select id="category">
 
-<option value="Notes">
+<option>Notes</option>
 
-Notes
+<option>Short Notes</option>
 
-</option>
+<option>PYQ</option>
 
-<option value="Short Notes">
+<option>Sample Paper</option>
 
-Short Notes
-
-</option>
-
-<option value="PYQ">
-
-PYQ
-
-</option>
-
-<option value="Sample Paper">
-
-Sample Paper
-
-</option>
+<option>Videos</option>
 
 </select>
 
-<!-- PDF -->
-
-<input
-type="file"
-id="pdfFile"
->
-
 <button id="uploadBtn">
 
-Upload PDF
+Upload Content
 
 </button>
 
@@ -170,25 +115,8 @@ Upload PDF
 
 <script type="module">
 
-import {
-
-db,
-storage
-
-}
-
+import { db }
 from "../firebase-config.js";
-
-import {
-
-ref,
-uploadBytes,
-getDownloadURL
-
-}
-
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 import {
 
@@ -211,6 +139,12 @@ async ()=>{
 const title =
 document.getElementById("title").value;
 
+const thumbnail =
+document.getElementById("thumbnail").value;
+
+const pdfLink =
+document.getElementById("pdfLink").value;
+
 const className =
 document.getElementById("className").value;
 
@@ -220,48 +154,18 @@ document.getElementById("subject").value;
 const category =
 document.getElementById("category").value;
 
-const file =
-document.getElementById("pdfFile").files[0];
-
-if(!file){
-
-alert("Select PDF");
-
-return;
-
-}
-
 try{
 
-/* STORAGE */
-
-const storageRef =
-ref(
-storage,
-"pdfs/" + Date.now() + file.name
-);
-
-await uploadBytes(
-storageRef,
-file
-);
-
-const pdfUrl =
-await getDownloadURL(
-storageRef
-);
-
-/* SAVE FIRESTORE */
-
 await addDoc(
-collection(db,"pdfs"),
+collection(db,"materials"),
 {
 
 title,
+thumbnail,
+pdfLink,
 className,
 subject,
 category,
-pdfUrl,
 createdAt:
 Date.now()
 
@@ -269,7 +173,7 @@ Date.now()
 );
 
 alert(
-"PDF Uploaded Successfully ✅"
+"Content Uploaded ✅"
 );
 
 }catch(error){

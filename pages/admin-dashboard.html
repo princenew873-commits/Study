@@ -1,40 +1,294 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>Admin Dashboard</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Admin Dashboard
+
+</title>
 
 <link rel="stylesheet"
 href="../style.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="animated-bg"></div>
+<!-- BACKGROUND -->
 
-<section class="hero glass">
+<div class="dashboard-bg"></div>
 
-<h1>Admin Dashboard</h1>
+<!-- FLOATING -->
+
+<div class="floating-books">
+
+<span>📚</span>
+<span>📝</span>
+<span>⚡</span>
+<span>🧪</span>
+
+</div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+<h1 class="logo">
+
+Admin Dashboard
+
+</h1>
+
+<div class="nav-links">
+
+<a href="../index.html">
+
+Home
+
+</a>
+
+</div>
+
+</nav>
+
+<!-- TITLE -->
+
+<section class="welcome-box glass">
+
+<h2>
+
+Upload Study Material 🚀
+
+</h2>
 
 <p>
-Upload PDFs manually
-inside assets/pdfs folder
+
+Upload PDFs and video links.
+
 </p>
 
 </section>
 
-<section class="subjects">
+<!-- UPLOAD FORM -->
 
-<div class="card glass">
+<section class="upload-section glass">
 
-<h3>Class 10 PDFs</h3>
+<h2>
 
-<p>
-Upload files inside:
-assets/pdfs/class10/
-</p>
+Upload PDF
+
+</h2>
+
+<input
+type="text"
+id="title"
+placeholder="PDF Title"
+>
+
+<select id="subject">
+
+<option>
+Physics
+</option>
+
+<option>
+Chemistry
+</option>
+
+<option>
+Maths
+</option>
+
+<option>
+Biology
+</option>
+
+<option>
+English
+</option>
+
+</select>
+
+<select id="category">
+
+<option>
+Notes
+</option>
+
+<option>
+Short Notes
+</option>
+
+<option>
+PYQ
+</option>
+
+<option>
+Sample Paper
+</option>
+
+</select>
+
+<input
+type="file"
+id="pdfFile"
+>
+
+<button id="uploadBtn">
+
+Upload PDF
+
+</button>
+
+</section>
+
+<footer>
+
+Admin Panel • Chintu Study Hub
+
+</footer>
+
+<script type="module">
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+import {
+getFirestore,
+collection,
+addDoc
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+apiKey:
+"YOUR_API_KEY",
+
+authDomain:
+"YOUR_DOMAIN",
+
+projectId:
+"YOUR_PROJECT_ID",
+
+storageBucket:
+"YOUR_BUCKET",
+
+messagingSenderId:
+"YOUR_ID",
+
+appId:
+"YOUR_APP_ID"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const storage =
+getStorage(app);
+
+const db =
+getFirestore(app);
+
+/* UPLOAD */
+
+const uploadBtn =
+document.getElementById("uploadBtn");
+
+uploadBtn.addEventListener(
+"click",
+
+async ()=>{
+
+const title =
+document.getElementById("title").value;
+
+const subject =
+document.getElementById("subject").value;
+
+const category =
+document.getElementById("category").value;
+
+const file =
+document.getElementById("pdfFile").files[0];
+
+if(!file){
+
+alert("Select PDF");
+
+return;
+
+}
+
+/* STORAGE */
+
+const storageRef =
+ref(
+storage,
+"pdfs/" + file.name
+);
+
+await uploadBytes(
+storageRef,
+file
+);
+
+const pdfUrl =
+await getDownloadURL(
+storageRef
+);
+
+/* SAVE DATABASE */
+
+await addDoc(
+collection(db,"pdfs"),
+{
+
+title,
+subject,
+category,
+pdfUrl
+
+}
+);
+
+alert(
+"PDF Uploaded ✅"
+);
+
+});
+
+</script>
+
+</body>
+</html></p>
 
 </div>
 

@@ -96,18 +96,12 @@ password
 const user =
 userCredential.user;
 
-console.log(user.email);
-
 alert(
 "Login Successful ✅"
 );
 
-/* ADMIN CHECK */
-
 if(
-user.email.trim().toLowerCase()
-===
-
+user.email ===
 "admin@gmail.com"
 ){
 

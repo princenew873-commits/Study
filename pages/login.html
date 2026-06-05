@@ -96,6 +96,8 @@ password
 const user =
 userCredential.user;
 
+console.log(user.email);
+
 alert(
 "Login Successful ✅"
 );
@@ -103,12 +105,15 @@ alert(
 /* ADMIN CHECK */
 
 if(
-user.email ===
-"princekgupta00@gmail.com"
+user.email.trim().toLowerCase()
+===
+
+"admin@gmail.com"
 ){
 
 window.location.href =
 "../pages/admin-dashboard.html";
+
 }else{
 
 window.location.href =

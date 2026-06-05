@@ -275,5 +275,106 @@ Made with ❤️ by Chintu
 
 </footer>
 
+  <div class="dashboard-bg"></div>
+
+<h1 class="main-heading">
+
+📚 Student Dashboard
+
+</h1>
+
+<div id="materialsContainer"
+class="materials-grid">
+
+</div>
 </body>
+
+  <script type="module">
+
+import { db }
+from "./firebase-config.js";
+
+import {
+
+collection,
+getDocs
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const materialsContainer =
+document.getElementById(
+"materialsContainer"
+);
+
+async function loadMaterials(){
+
+const querySnapshot =
+await getDocs(
+collection(db,"materials")
+);
+
+materialsContainer.innerHTML = "";
+
+querySnapshot.forEach((doc)=>{
+
+const data =
+doc.data();
+
+materialsContainer.innerHTML += `
+
+<div class="material-card glass">
+
+<img
+src="${data.thumbnail}"
+class="thumb"
+>
+
+<h2>
+
+${data.title}
+
+</h2>
+
+<p>
+
+${data.className}
+
+</p>
+
+<p>
+
+${data.subject}
+
+</p>
+
+<p>
+
+${data.category}
+
+</p>
+
+<a
+href="${data.pdfLink}"
+target="_blank"
+class="download-btn"
+>
+
+Open PDF
+
+</a>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadMaterials();
+
+</script>
 </html>

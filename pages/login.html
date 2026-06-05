@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>User Login</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Login</title>
 
 <link rel="stylesheet"
 href="../style.css">
@@ -12,27 +17,100 @@ href="../style.css">
 
 <body>
 
-<div class="animated-bg"></div>
+<div class="bg"></div>
 
-<div class="form-container glass">
+<div class="auth-box">
 
-<h2>User Login</h2>
+<h1>Welcome Back 👋</h1>
+
+<p>
+Login to continue
+</p>
 
 <input
 type="email"
+id="email"
 placeholder="Enter Email"
 >
 
 <input
 type="password"
+id="password"
 placeholder="Enter Password"
 >
 
-<button>
+<button id="loginBtn">
+
 Login
+
 </button>
 
+<p class="bottom-text">
+
+Don't have account?
+
+<a href="signup.html">
+Signup
+</a>
+
+</p>
+
 </div>
+
+<script type="module">
+
+import { auth }
+from "../firebase-config.js";
+
+import {
+
+signInWithEmailAndPassword
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+loginBtn.addEventListener(
+"click",
+
+()=>{
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+signInWithEmailAndPassword(
+auth,
+email,
+password
+)
+
+.then(()=>{
+
+alert(
+"Login Successful ✅"
+);
+
+window.location.href =
+"../index.html";
+
+})
+
+.catch((error)=>{
+
+alert(error.message);
+
+});
+
+});
+
+</script>
 
 </body>
 </html>

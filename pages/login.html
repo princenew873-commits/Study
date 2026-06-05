@@ -71,10 +71,7 @@ from
 const loginBtn =
 document.getElementById("loginBtn");
 
-loginBtn.addEventListener(
-"click",
-
-()=>{
+loginBtn.onclick = async ()=>{
 
 const email =
 document.getElementById("email").value;
@@ -82,31 +79,28 @@ document.getElementById("email").value;
 const password =
 document.getElementById("password").value;
 
-signInWithEmailAndPassword(
+try{
+
+const userCredential =
+await signInWithEmailAndPassword(
 auth,
 email,
 password
-)
-
-.then((userCredential)=>{
+);
 
 const user =
 userCredential.user;
 
-/* YOUR ADMIN UID */
+alert(
+"UID: " + user.uid
+);
 
 const adminUID =
 "eYqfCc489Qf3xMiaLotjTRYAGYR2";
 
-alert(
-"Logged in UID: " + user.uid
-);
+/* ADMIN */
 
-/* ADMIN LOGIN */
-
-if(
-user.uid === adminUID
-){
+if(user.uid === adminUID){
 
 window.location.href =
 "./admin-dashboard.html";
@@ -118,15 +112,13 @@ window.location.href =
 
 }
 
-})
-
-.catch((error)=>{
+}catch(error){
 
 alert(error.message);
 
-});
+}
 
-});
+};
 
   </script>
 

@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,17 +6,11 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
+<title>Student Dashboard</title>
 
-Student Dashboard
-
-</title>
-
-<link rel="stylesheet"
-href="style.css">
+<link rel="stylesheet" href="style.css">
 
 <link
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
@@ -267,18 +262,6 @@ Best teachers lectures.
 
 </section>
 
-  <h1 class="main-heading">
-
-📚 Uploaded Materials
-
-</h1>
-
-<div
-id="materialsContainer"
-class="materials-grid">
-
-</div>
-
 <!-- FOOTER -->
 
 <footer>
@@ -287,95 +270,7 @@ Made with ❤️ by Chintu
 
 </footer>
 
-  
-
-  <script type="module">
-
-import { db }
-from "./firebase-config.js";
-
-import {
-
-collection,
-getDocs
-
-}
-
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const materialsContainer =
-document.getElementById(
-"materialsContainer"
-);
-
-async function loadMaterials(){
-
-const querySnapshot =
-await getDocs(
-collection(db,"materials")
-);
-
-materialsContainer.innerHTML = "";
-
-querySnapshot.forEach((doc)=>{
-
-const data =
-doc.data();
-
-materialsContainer.innerHTML += `
-
-<div class="material-card glass">
-
-<img
-src="${data.thumbnail}"
-class="thumb"
->
-
-<h2>
-
-${data.title}
-
-</h2>
-
-<p>
-
-${data.className}
-
-</p>
-
-<p>
-
-${data.subject}
-
-</p>
-
-<p>
-
-${data.category}
-
-</p>
-
-<a
-onclick="window.open('${data.pdfLink}','_blank')"
-class="download-btn"
->
-
-Open PDF
-
-</a>
-
-</div>
-
-`;
-
-});
-
-}
-
-loadMaterials();
-
-</script>
 </body>
 
 </html>
+```

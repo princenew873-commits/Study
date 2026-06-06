@@ -5,42 +5,31 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
 
-English Resources
+Class 10 English 
 
 </title>
 
-<link rel="stylesheet"
-href="../style.css">
+<link rel="stylesheet" href="../style.css">
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
-
 <div class="dashboard-bg"></div>
-
-<!-- FLOATING ICONS -->
 
 <div class="floating-books">
 
-<span>⚡</span>
-<span>📚</span>
 <span>🧪</span>
-<span>📐</span>
+<span>⚗️</span>
+<span>📘</span>
 
 </div>
-
-<!-- NAVBAR -->
 
 <nav>
 
@@ -52,6 +41,12 @@ English Resources
 
 <div class="nav-links">
 
+<a href="class10.html">
+
+Back
+
+</a>
+
 <a href="../dashboard.html">
 
 Dashboard
@@ -62,144 +57,63 @@ Dashboard
 
 </nav>
 
-<!-- TITLE -->
-
 <section class="welcome-box glass">
 
 <h2>
 
-English Study Material ⚡
+English Study Material 🧪
 
 </h2>
 
 <p>
 
-Access notes, PYQs, sample papers and lectures.
+Class 10 English Notes, PYQs, Videos and More.
 
 </p>
 
 </section>
 
-<!-- CONTENT GRID -->
-
 <section class="dashboard-grid">
-
-<!-- NOTES -->
 
 <div class="dashboard-card glass">
 
 <h2>📘 Notes</h2>
 
-<p>
-
-Chapterwise handwritten notes.
-
-</p>
-
-<a
-href="../assets/pdfs/english-notes.pdf"
-target="_blank"
->
-
-Open
-
-</a>
+<div id="notesContainer"></div>
 
 </div>
-
-<!-- SHORT NOTES -->
 
 <div class="dashboard-card glass">
 
 <h2>📝 Short Notes</h2>
 
-<p>
-
-Quick revision notes.
-
-</p>
-
-<a
-href="../assets/pdfs/english-short-notes.pdf"
-target="_blank"
->
-
-Open
-
-</a>
+<div id="shortNotesContainer"></div>
 
 </div>
-
-<!-- PYQ -->
 
 <div class="dashboard-card glass">
 
 <h2>📄 PYQs</h2>
 
-<p>
-
-Previous year questions.
-
-</p>
-
-<a
-href="../assets/pdfs/english-pyq.pdf"
-target="_blank"
->
-
-Open
-
-</a>
+<div id="pyqContainer"></div>
 
 </div>
-
-<!-- SAMPLE PAPER -->
 
 <div class="dashboard-card glass">
 
 <h2>📑 Sample Papers</h2>
 
-<p>
-
-Practice sample papers.
-
-</p>
-
-<a
-href="../assets/pdfs/english-sample-paper.pdf"
-target="_blank"
->
-
-Open
-
-</a>
+<div id="sampleContainer"></div>
 
 </div>
-
-<!-- VIDEO LECTURES -->
 
 <div class="dashboard-card glass">
 
-<h2>🎥 Expert Videos</h2>
+<h2>🎥 Videos</h2>
 
-<p>
-
-Watch expert teacher lectures.
-
-</p>
-
-<a
-href="https://youtube.com/"
-target="_blank"
->
-
-Watch
-
-</a>
+<div id="videoContainer"></div>
 
 </div>
-
-<!-- QUIZ -->
 
 <div class="dashboard-card glass">
 
@@ -227,5 +141,95 @@ Made with ❤️ by Chintu
 
 </footer>
 
+<script type="module">
+
+import { db } from "../firebase-config.js";
+
+import {
+
+collection,
+query,
+where,
+getDocs
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+async function loadMaterials(){
+
+const q = query(
+
+collection(db,"materials"),
+
+where("subject","==","English"),
+
+where("className","==","Class 10")
+
+);
+
+const querySnapshot = await getDocs(q);
+
+querySnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+const card = `
+
+<div class="material-item">
+
+<img src="${data.thumbnail}" class="thumb">
+
+<h3>${data.title}</h3>
+
+<a href="${data.pdfLink}" target="_blank">
+
+Open
+
+</a>
+
+</div>
+
+`;
+
+if(data.category==="Notes"){
+
+document.getElementById("notesContainer").innerHTML += card;
+
+}
+
+else if(data.category==="Short Notes"){
+
+document.getElementById("shortNotesContainer").innerHTML += card;
+
+}
+
+else if(data.category==="PYQs"){
+
+document.getElementById("pyqContainer").innerHTML += card;
+
+}
+
+else if(data.category==="Sample Papers"){
+
+document.getElementById("sampleContainer").innerHTML += card;
+
+}
+
+else if(data.category==="Videos"){
+
+document.getElementById("videoContainer").innerHTML += card;
+
+}
+
+});
+
+}
+
+loadMaterials();
+
+</script>
+
 </body>
+
 </html>

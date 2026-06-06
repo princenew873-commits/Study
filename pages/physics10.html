@@ -274,7 +274,253 @@ ${data.title}
 </h3>
 
 <a
-href="${data.pdfLink}"
+href="${<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Class 10 Physics
+
+</title>
+
+<link rel="stylesheet" href="../style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="dashboard-bg"></div>
+
+<div class="floating-books">
+
+<span>⚡</span>
+<span>📘</span>
+<span>🧲</span>
+
+</div>
+
+<nav>
+
+<h1 class="logo">
+
+Physics Resources
+
+</h1>
+
+<div class="nav-links">
+
+<a href="class10.html">
+
+Back
+
+</a>
+
+<a href="../dashboard.html">
+
+Dashboard
+
+</a>
+
+</div>
+
+</nav>
+
+<section class="welcome-box glass">
+
+<h2>
+
+Physics Study Material ⚡
+
+</h2>
+
+<p>
+
+Class 10 Physics Notes, PYQs, Videos and More.
+
+</p>
+
+</section>
+
+<section class="dashboard-grid">
+
+<!-- NOTES -->
+
+<div class="dashboard-card glass">
+
+<h2>📘 Notes</h2>
+
+<div id="notesContainer"></div>
+
+</div>
+
+<!-- SHORT NOTES -->
+
+<div class="dashboard-card glass">
+
+<h2>📝 Short Notes</h2>
+
+<div id="shortNotesContainer"></div>
+
+</div>
+
+<!-- PYQS -->
+
+<div class="dashboard-card glass">
+
+<h2>📄 PYQs</h2>
+
+<div id="pyqContainer"></div>
+
+</div>
+
+<!-- SAMPLE PAPERS -->
+
+<div class="dashboard-card glass">
+
+<h2>📑 Sample Papers</h2>
+
+<div id="sampleContainer"></div>
+
+</div>
+
+<!-- VIDEOS -->
+
+<div class="dashboard-card glass">
+
+<h2>🎥 Videos</h2>
+
+<div id="videoContainer"></div>
+
+</div>
+
+<!-- QUIZ -->
+
+<div class="dashboard-card glass">
+
+<h2>🧠 MCQ Quiz</h2>
+
+<p>
+
+Practice important MCQs.
+
+</p>
+
+<a href="quiz.html">
+
+Start
+
+</a>
+
+</div>
+
+</section>
+
+<footer>
+
+Made with ❤️ by Chintu
+
+</footer>
+
+<script type="module">
+
+import { db } from "../firebase-config.js";
+
+import {
+
+collection,
+query,
+where,
+getDocs
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+async function loadMaterials(){
+
+const q = query(
+
+collection(db,"materials"),
+
+where("subject","==","Physics"),
+
+where("className","==","Class 10")
+
+);
+
+const querySnapshot = await getDocs(q);
+
+querySnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+const card = `
+
+<div class="material-item">
+
+<img src="${data.thumbnail}" class="thumb">
+
+<h3>${data.title}</h3>
+
+<a href="${data.pdfLink}" target="_blank">
+
+Open
+
+</a>
+
+</div>
+
+`;
+
+if(data.category==="Notes"){
+
+document.getElementById("notesContainer").innerHTML += card;
+
+}
+
+else if(data.category==="Short Notes"){
+
+document.getElementById("shortNotesContainer").innerHTML += card;
+
+}
+
+else if(data.category==="PYQs"){
+
+document.getElementById("pyqContainer").innerHTML += card;
+
+}
+
+else if(data.category==="Sample Papers"){
+
+document.getElementById("sampleContainer").innerHTML += card;
+
+}
+
+else if(data.category==="Videos"){
+
+document.getElementById("videoContainer").innerHTML += card;
+
+}
+
+});
+
+}
+
+loadMaterials();
+
+</script>
+
+</body>
+
+</html>.pdfLink}"
 target="_blank"
 >
 

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Physics Short Notes
+
+</title>
+
+<link rel="stylesheet"
+href="../style.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="dashboard-bg"></div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+<h1 class="logo">
+
+Physics Short Notes
+
+</h1>
+
+<div class="nav-links">
+
+<a href="physics10.html">
+
+Back
+
+</a>
+
+<a href="../dashboard.html">
+
+Dashboard
+
+</a>
+
+</div>
+
+</nav>
+
+<!-- TITLE -->
+
+<section class="welcome-box glass">
+
+<h2>
+
+📝 Class 10 Physics Short Notes
+
+</h2>
+
+<p>
+
+Quick revision notes for Physics.
+
+</p>
+
+</section>
+
+<!-- MATERIALS -->
+
+<div
+id="materialsContainer"
+class="materials-list">
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+Made with ❤️ by Chintu
+
+</footer>
+
+<script type="module">
+
+import { db }
+from "../firebase-config.js";
+
+import {
+
+collection,
+query,
+where,
+getDocs
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const container =
+document.getElementById(
+"materialsContainer"
+);
+
+async function loadMaterials(){
+
+const q = query(
+
+collection(db,"materials"),
+
+where("subject","==","Physics"),
+
+where("className","==","Class 10"),
+
+where("category","==","Short Notes")
+
+);
+
+const querySnapshot =
+await getDocs(q);
+
+container.innerHTML = "";
+
+querySnapshot.forEach((doc)=>{
+
+const data =
+doc.data();
+
+container.innerHTML += `
+
+<div class="material-row glass">
+
+<img
+
+src="${data.thumbnail || 'https://picsum.photos/300/200'}"
+
+class="list-thumb"
+
+>
+
+<div>
+
+<h3>
+
+${data.title}
+
+</h3>
+
+<a
+
+href="${data.pdfLink}"
+
+target="_blank"
+
+>
+
+Open PDF
+
+</a>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadMaterials();
+
+</script>
+
+</body>
+
+</html>

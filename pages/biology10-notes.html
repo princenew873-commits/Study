@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Biology Notes</title>
+
+<link rel="stylesheet" href="../style.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="dashboard-bg"></div>
+
+<nav>
+
+<h1 class="logo">
+Biology Notes
+</h1>
+
+<div class="nav-links">
+
+<a href="biology10.html">
+Back
+</a>
+
+<a href="../dashboard.html">
+Dashboard
+</a>
+
+</div>
+
+</nav>
+
+<section class="welcome-box glass">
+
+<h2>
+🧬 Class 10 Biology Notes
+</h2>
+
+<p>
+Chapterwise Biology Notes
+</p>
+
+</section>
+
+<div
+id="materialsContainer"
+class="materials-list">
+
+</div>
+
+<footer>
+Made with ❤️ by Chintu
+</footer>
+
+<script type="module">
+
+import { db }
+from "../firebase-config.js";
+
+import {
+collection,
+query,
+where,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const container =
+document.getElementById(
+"materialsContainer"
+);
+
+async function loadMaterials(){
+
+const q = query(
+
+collection(db,"materials"),
+
+where("subject","==","Biology"),
+
+where("className","==","Class 10"),
+
+where("category","==","Notes")
+
+);
+
+const querySnapshot =
+await getDocs(q);
+
+container.innerHTML = "";
+
+querySnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+container.innerHTML += `
+
+<div class="material-row glass">
+
+<img
+src="${data.thumbnail || 'https://picsum.photos/300/200'}"
+class="list-thumb">
+
+<div>
+
+<h3>${data.title}</h3>
+
+<a
+href="${data.pdfLink}"
+target="_blank">
+
+Open PDF
+
+</a>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadMaterials();
+
+</script>
+
+</body>
+</html>

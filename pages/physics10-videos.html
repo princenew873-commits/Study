@@ -91,20 +91,18 @@ Made with ❤️ by Chintu
 
 </footer>
 
+```html
 <script type="module">
 
 import { db }
 from "../firebase-config.js";
 
 import {
-
 collection,
 query,
 where,
 getDocs
-
 }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -132,40 +130,76 @@ await getDocs(q);
 
 container.innerHTML = "";
 
+const chapters = {};
+
 querySnapshot.forEach((doc)=>{
 
 const data =
 doc.data();
 
+const chapter =
+data.chapterName || "Other Videos";
+
+if(!chapters[chapter]){
+
+chapters[chapter] = [];
+
+}
+
+chapters[chapter].push(data);
+
+});
+
+for(const chapter in chapters){
+
 container.innerHTML += `
+
+<div class="glass"
+style="
+margin:20px;
+padding:20px;
+border-radius:15px;
+">
+
+<h2>
+📂 ${chapter}
+</h2>
+
+<div
+id="chapter-${chapter.replace(/\s/g,'')}">
+
+</div>
+
+</div>
+
+`;
+
+const chapterDiv =
+document.getElementById(
+`chapter-${chapter.replace(/\s/g,'')}`
+);
+
+chapters[chapter].forEach((data)=>{
+
+chapterDiv.innerHTML += `
 
 <div class="material-row glass">
 
 <img
-
 src="${data.thumbnail || 'https://picsum.photos/300/200'}"
-
-class="list-thumb"
-
->
+class="list-thumb">
 
 <div>
 
 <h3>
-
 ${data.title}
-
 </h3>
 
 <a
-
 href="${data.pdfLink}"
+target="_blank">
 
-target="_blank"
-
->
-
-Open PDF
+▶ Watch Video
 
 </a>
 
@@ -179,10 +213,11 @@ Open PDF
 
 }
 
+}
+
 loadMaterials();
 
 </script>
-
 </body>
 
 </html>

@@ -1,21 +1,62 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
 
-<title>
+<link rel="stylesheet" href="../style.css">
 
-Admin Dashboard
+<style>
 
-</title>
+#materialsList{
+max-width:1000px;
+margin:30px auto;
+}
 
-<link rel="stylesheet"
-href="../style.css">
+.material-card{
+padding:15px;
+margin:10px;
+border-radius:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+}
+
+.material-card img{
+width:80px;
+height:80px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.material-info{
+flex:1;
+}
+
+.material-actions button{
+margin:5px;
+padding:8px 15px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.edit-btn{
+background:#3498db;
+color:white;
+}
+
+.delete-btn{
+background:#e74c3c;
+color:white;
+}
+
+</style>
 
 </head>
 
@@ -25,82 +66,50 @@ href="../style.css">
 
 <div class="auth-box glass">
 
-<h1>
-
-Admin Upload Panel 🚀
-
-</h1>
-
-<!-- TITLE -->
+<h1>Admin Upload Panel 🚀</h1>
 
 <input
 type="text"
 id="title"
-placeholder="PDF Title"
->
-
-<!-- THUMBNAIL -->
+placeholder="PDF Title">
 
 <input
 type="text"
 id="thumbnail"
-placeholder="Thumbnail Image URL"
->
-
-<!-- PDF LINK -->
+placeholder="Thumbnail Image URL">
 
 <input
 type="text"
 id="pdfLink"
-placeholder="PDF Link"
->
-
-<!-- CLASS -->
+placeholder="PDF Link">
 
 <select id="className">
 
 <option>Class 10</option>
-
 <option>Class 11</option>
-
 <option>Class 12</option>
-
 <option>JEE</option>
-
 <option>NEET</option>
-
 <option>NDA</option>
 
 </select>
 
-<!-- SUBJECT -->
-
 <select id="subject">
 
 <option>Physics</option>
-
 <option>Chemistry</option>
-
 <option>Maths</option>
-
 <option>Biology</option>
-
 <option>English</option>
 
 </select>
 
-<!-- CATEGORY -->
-
 <select id="category">
 
 <option>Notes</option>
-
 <option>Short Notes</option>
-
 <option>PYQ</option>
-
 <option>Sample Paper</option>
-
 <option>Videos</option>
 
 </select>
@@ -113,6 +122,21 @@ Upload Content
 
 </div>
 
+<h2
+style="
+text-align:center;
+color:white;
+margin-top:30px;">
+
+📚 Uploaded Materials
+
+</h2>
+
+<div
+id="materialsList">
+
+</div>
+
 <script type="module">
 
 import { db }
@@ -121,17 +145,24 @@ from "../firebase-config.js";
 import {
 
 collection,
-addDoc
+addDoc,
+getDocs,
+deleteDoc,
+updateDoc,
+doc
 
 }
 
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const uploadBtn =
 document.getElementById("uploadBtn");
 
+const materialsList =
+document.getElementById("materialsList");
+
 uploadBtn.addEventListener(
+
 "click",
 
 async ()=>{
@@ -166,17 +197,17 @@ pdfLink,
 className,
 subject,
 category,
-  views: 0,
-downloads: 0,
-createdAt:
-Date.now()
+
+views:0,
+downloads:0,
+createdAt:Date.now()
 
 }
 );
 
-alert(
-"Content Uploaded ✅"
-);
+alert("Content Uploaded ✅");
+
+loadMaterials();
 
 }catch(error){
 
@@ -184,9 +215,126 @@ alert(error.message);
 
 }
 
+}
+
+);
+
+async function loadMaterials(){
+
+const snapshot =
+await getDocs(
+collection(db,"materials")
+);
+
+materialsList.innerHTML = "";
+
+snapshot.forEach((material)=>{
+
+const data =
+material.data();
+
+materialsList.innerHTML += `
+
+<div class="material-card glass">
+
+<img
+src="${data.thumbnail}"
+onerror="this.src='https://picsum.photos/200'">
+
+<div class="material-info">
+
+<h3>${data.title}</h3>
+
+<p>
+${data.className}
+|
+${data.subject}
+|
+${data.category}
+</p>
+
+<p>
+Views:
+${data.views || 0}
+|
+Downloads:
+${data.downloads || 0}
+</p>
+
+</div>
+
+<div class="material-actions">
+
+<button
+class="edit-btn"
+onclick="editMaterial('${material.id}')">
+
+✏ Edit
+
+</button>
+
+<button
+class="delete-btn"
+onclick="deleteMaterial('${material.id}')">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
 });
+
+}
+
+window.deleteMaterial =
+async function(id){
+
+const confirmDelete =
+confirm(
+"Delete this material?"
+);
+
+if(!confirmDelete)
+return;
+
+await deleteDoc(
+doc(db,"materials",id)
+);
+
+loadMaterials();
+
+};
+
+window.editMaterial =
+async function(id){
+
+const newTitle =
+prompt("Enter New Title");
+
+if(!newTitle)
+return;
+
+await updateDoc(
+doc(db,"materials",id),
+{
+title:newTitle
+}
+);
+
+loadMaterials();
+
+};
+
+loadMaterials();
 
 </script>
 
 </body>
+
 </html>
+```

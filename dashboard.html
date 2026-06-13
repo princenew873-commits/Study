@@ -275,73 +275,28 @@ class="materials-grid">
 Made with ❤️ by Chintu
 
 </footer>
-<div id="chatbot-icon">
-🤖
-</div>
+<footer>
+Made with ❤️ by Chintu
+</footer>
 
-<div id="chatbot-box">
+<!--Start of Tawk.to Script-->
 
-<div class="chat-header">
-Study Assistant
-</div>
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a2d29318705f01c3509bbbf/1jr06hrtq';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
 
-<div class="chat-messages">
-👋 Hello! How can I help you?
-</div>
+<!--End of Tawk.to Script-->
 
-<input
-type="text"
-placeholder="Type your question...">
-
-</div>
-
-  <script>
-
-const icon =
-document.getElementById("chatbot-icon");
-
-const box =
-document.getElementById("chatbot-box");
-
-icon.onclick = ()=>{
-
-if(box.style.display==="block"){
-
-box.style.display="none";
-
-}else{
-
-box.style.display="block";
-
-}
-
-};
-let isDragging = false;
-
-icon.addEventListener("mousedown",()=>{
-
-isDragging=true;
-
-});
-
-document.addEventListener("mousemove",(e)=>{
-
-if(!isDragging) return;
-
-icon.style.left =
-e.clientX-30+"px";
-
-icon.style.top =
-e.clientY-30+"px";
-
-});
-
-document.addEventListener("mouseup",()=>{
-
-isDragging=false;
-
-});
-  </script>
+</body>
+</html>
 </body>
 
 </html>

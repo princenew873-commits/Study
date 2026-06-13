@@ -294,6 +294,54 @@ type="text"
 placeholder="Type your question...">
 
 </div>
+
+  <script>
+
+const icon =
+document.getElementById("chatbot-icon");
+
+const box =
+document.getElementById("chatbot-box");
+
+icon.onclick = ()=>{
+
+if(box.style.display==="block"){
+
+box.style.display="none";
+
+}else{
+
+box.style.display="block";
+
+}
+
+};
+let isDragging = false;
+
+icon.addEventListener("mousedown",()=>{
+
+isDragging=true;
+
+});
+
+document.addEventListener("mousemove",(e)=>{
+
+if(!isDragging) return;
+
+icon.style.left =
+e.clientX-30+"px";
+
+icon.style.top =
+e.clientY-30+"px";
+
+});
+
+document.addEventListener("mouseup",()=>{
+
+isDragging=false;
+
+});
+  </script>
 </body>
 
 </html>

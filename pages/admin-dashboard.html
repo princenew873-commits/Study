@@ -113,7 +113,11 @@ placeholder="PDF Link">
 <option>Videos</option>
 
 </select>
-
+<input
+type="text"
+id="chapterName"
+placeholder="Chapter Name (Only For Videos)">
+  
 <button id="uploadBtn">
 
 Upload Content
@@ -184,6 +188,9 @@ document.getElementById("subject").value;
 
 const category =
 document.getElementById("category").value;
+
+  const chapterName =
+document.getElementById("chapterName").value;
 
 try{
 

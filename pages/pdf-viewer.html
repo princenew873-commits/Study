@@ -38,8 +38,15 @@ new URLSearchParams(window.location.search);
 const pdfUrl =
 params.get("url");
 
+const fileId =
+pdfUrl.match(/\/d\/(.*?)\//)?.[1];
+
+if(fileId){
+
 document.getElementById("pdfFrame").src =
-pdfUrl;
+`https://drive.google.com/file/d/${fileId}/preview`;
+
+}
 
 </script>
 

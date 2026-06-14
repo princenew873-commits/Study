@@ -105,6 +105,16 @@ Choose your course and start learning.
 </div>
 
   </section>
+
+  <section class="announcement-section glass">
+
+<h2>📢 Announcements</h2>
+
+<div id="announcementList">
+<p>Loading announcements...</p>
+</div>
+
+  </section>
   
 <!-- CLASS CARDS -->
 
@@ -336,9 +346,65 @@ countdown("neetCountdown", "2027-05-03");
 countdown("boardsCountdown", "2027-02-15");
 
 </script>
+<script type="module">
+
+import { db }
+from "./firebase-config.js";
+
+import {
+collection,
+getDocs,
+query,
+orderBy
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const announcementList =
+document.getElementById("announcementList");
+
+async function loadAnnouncements(){
+
+const q = query(
+collection(db,"announcements"),
+orderBy("createdAt","desc")
+);
+
+const snapshot =
+await getDocs(q);
+
+announcementList.innerHTML = "";
+
+if(snapshot.empty){
+
+announcementList.innerHTML =
+"<p>No announcements yet.</p>";
+
+return;
+
+}
+
+snapshot.forEach((doc)=>{
+
+const data =
+doc.data();
+
+announcementList.innerHTML += `
+
+<div class="announcement-card">
+
+📌 ${data.text}
+
+</div>
+
+`;
+
+});
+
+}
+
+loadAnnouncements();
+
+</script>
   
 </body>
-</html>
-</body>
-
 </html>

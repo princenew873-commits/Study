@@ -151,6 +151,43 @@ function loadVideos(snapshot){
   Object.keys(chapters).forEach((chapter) => {
     const id = safeId(chapter);
 
+    function getYouTubeId(url){
+
+if(!url) return null;
+
+if(url.includes("youtu.be/")){
+return url.split("youtu.be/")[1].split("?")[0];
+}
+
+if(url.includes("youtube.com/watch")){
+return new URL(url).searchParams.get("v");
+}
+
+if(url.includes("youtube.com/embed/")){
+return url.split("/embed/")[1].split("?")[0];
+}
+
+return null;
+
+}
+
+function getVideoThumbnail(data){
+
+if(data.thumbnail && data.thumbnail.trim() !== ""){
+return data.thumbnail;
+}
+
+const videoId =
+getYouTubeId(data.pdfLink);
+
+if(videoId){
+return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+return "https://picsum.photos/400/225";
+
+}
+
     container.innerHTML += `
       <div class="glass chapter-box">
         <h2
@@ -178,7 +215,7 @@ function loadVideos(snapshot){
 
           <div class="thumb-wrap">
             <img
-              src="${data.thumbnail || 'https://picsum.photos/400/225'}"
+              src="${getVideoThumbnail(data)}"
               class="video-thumb">
 
             <div class="play-badge">▶</div>

@@ -1322,20 +1322,26 @@ margin-top:15px;
   transition:0.3s;
 }
 
-.video-card:hover{
-  transform:translateY(-5px);
+.video-card{
+display:block;
+text-decoration:none;
+overflow:hidden;
+border-radius:12px;
+transition:.3s;
+background:#1e1e1e;
 }
 
 .video-thumb{
-  width:100%;
-  height:160px;
-  object-fit:cover;
-  border-radius:14px;
+width:100%;
+aspect-ratio:16/9;
+object-fit:cover;
+border-radius:12px;
 }
 
 .video-title{
-  padding:12px;
-  color:white;
-  font-weight:600;
-  text-align:center;
+padding:10px 5px;
+font-size:15px;
+font-weight:600;
+color:white;
+line-height:1.4;
 }

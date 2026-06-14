@@ -2,93 +2,37 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>Physics Lectures</title>
 
-<title>
-
-Physics Lectures 
-
-</title>
-
-<link rel="stylesheet"
-href="../style.css">
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
-rel="stylesheet">
-
+<link rel="stylesheet" href="../style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
-
 <div class="dashboard-bg"></div>
 
-<!-- NAVBAR -->
-
 <nav>
-
-<h1 class="logo">
-
-Physics Lectures 
-
-</h1>
+<h1 class="logo" id="pageTitle">Physics Lectures</h1>
 
 <div class="nav-links">
-
-<a href="physics10.html">
-
-Back
-
-</a>
-
-<a href="../dashboard.html">
-
-Dashboard
-
-</a>
-
+<a id="backBtn" href="chemistry10.html">Back</a>
+<a href="../dashboard.html">Dashboard</a>
 </div>
-
 </nav>
 
-<!-- TITLE -->
-
 <section class="welcome-box glass">
-
-<h2>
-
-📝 Class 10 Physics Lectures 
-
-</h2>
-
-<p>
-
-Expert Teacher's Lectures.
-
-</p>
-
+<h2 id="mainHeading">🎥 Physics Lectures</h2>
+<p>Chapter-wise expert video lectures.</p>
 </section>
 
-<!-- MATERIALS -->
-
-<div
-id="materialsContainer"
-class="materials-list">
-
-</div>
-
-<!-- FOOTER -->
+<div id="materialsContainer" class="materials-list"></div>
 
 <footer>
-
 Made with ❤️ by Chintu
-
 </footer>
 
 <script type="module">
@@ -101,7 +45,16 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+/* CHANGE ONLY THESE */
+const CLASS_NAME = "Class 10";
+const SUBJECT_NAME = "Physics";
+const BACK_PAGE = "physics10.html";
+
 const container = document.getElementById("materialsContainer");
+
+document.getElementById("pageTitle").innerText = SUBJECT_NAME + " Lectures";
+document.getElementById("mainHeading").innerText = "🎥 " + CLASS_NAME + " " + SUBJECT_NAME + " Lectures";
+document.getElementById("backBtn").href = BACK_PAGE;
 
 function safeId(text){
   return text.replace(/[^a-zA-Z0-9]/g, "");
@@ -138,14 +91,24 @@ window.toggleChapter = function(id){
 async function loadMaterials(){
   const q = query(
     collection(db, "materials"),
-    where("subject", "==", "Physics"),
-    where("className", "==", "Class 10"),
+    where("subject", "==", SUBJECT_NAME),
+    where("className", "==", CLASS_NAME),
     where("category", "==", "Videos")
   );
 
   const querySnapshot = await getDocs(q);
 
   container.innerHTML = "";
+
+  if(querySnapshot.empty){
+    container.innerHTML = `
+      <div class="glass" style="padding:30px;text-align:center;border-radius:20px;color:white;">
+        <h2>📭 No Videos Found</h2>
+        <p>Videos will be uploaded soon.</p>
+      </div>
+    `;
+    return;
+  }
 
   const chapters = {};
 
@@ -184,57 +147,34 @@ async function loadMaterials(){
 
     chapters[chapter].forEach((data) => {
       chapterDiv.innerHTML += `
-container.innerHTML += `
-      <div class="glass chapter-box">
-        <h2
-          class="chapter-title"
-          data-id="${id}"
-          onclick="toggleChapter('${id}')">
-          ▶ 📂 ${chapter} (${chapters[chapter].length} Videos)
-        </h2>
+        <a
+          href="video-player.html?url=${encodeURIComponent(data.pdfLink)}"
+          class="video-card">
 
-        <div
-          id="chapter-${id}"
-          class="chapter-content"
-          style="display:none;">
-        </div>
-      </div>
-    `;
+          <div class="thumb-wrap">
+            <img
+              src="${data.thumbnail || 'https://picsum.photos/400/225'}"
+              class="video-thumb">
 
-    const chapterDiv = document.getElementById("chapter-" + id);
+            <div class="play-badge">▶</div>
+          </div>
 
-    chapters[chapter].forEach((data) => {
-chapterDiv.innerHTML += `
+          <div class="video-title">
+            ${data.title}
+          </div>
 
-<a
-href="video-player.html?url=${encodeURIComponent(data.pdfLink)}"
-class="video-card">
+          <div class="video-meta">
+            ${data.subject} • ${data.className}
+          </div>
 
-<div class="thumb-wrap">
-<img
-src="${data.thumbnail || 'https://picsum.photos/400/225'}"
-class="video-thumb">
-
-<div class="play-badge">▶</div>
-</div>
-
-<div class="video-title">
-${data.title}
-</div>
-
-<div class="video-meta">
-${data.subject} • ${data.className}
-</div>
-
-</a>
-
-`;
+        </a>
+      `;
     });
   });
 }
 
 loadMaterials();
-    </script>
-</body>
+</script>
 
+</body>
 </html>

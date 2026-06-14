@@ -91,172 +91,119 @@ Made with ❤️ by Chintu
 
 </footer>
 
-
 <script type="module">
-
-import { db }
-from "../firebase-config.js";
+import { db } from "../firebase-config.js";
 
 import {
-collection,
-query,
-where,
-getDocs
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const container =
-document.getElementById(
-"materialsContainer"
-);
+const container = document.getElementById("materialsContainer");
 
-  window.toggleChapter = function(id){
-
-const allChapters =
-document.querySelectorAll(
-".chapter-content"
-);
-
-allChapters.forEach((chapter)=>{
-
-if(
-chapter.id !== `chapter-${id}`
-){
-
-chapter.style.display = "none";
-
+function safeId(text){
+  return text.replace(/[^a-zA-Z0-9]/g, "");
 }
 
-});
+window.toggleChapter = function(id){
+  const allContents = document.querySelectorAll(".chapter-content");
+  const allTitles = document.querySelectorAll(".chapter-title");
 
-const current =
-document.getElementById(
-`chapter-${id}`
-);
+  allContents.forEach(content => {
+    if(content.id !== "chapter-" + id){
+      content.style.display = "none";
+    }
+  });
 
-if(
-current.style.display === "none"
-){
+  allTitles.forEach(title => {
+    if(title.dataset.id !== id){
+      title.innerHTML = title.innerHTML.replace("▼", "▶");
+    }
+  });
 
-current.style.display = "block";
+  const current = document.getElementById("chapter-" + id);
+  const title = document.querySelector(`[data-id="${id}"]`);
 
-}else{
-
-current.style.display = "none";
-
-}
-
+  if(current.style.display === "none"){
+    current.style.display = "grid";
+    title.innerHTML = title.innerHTML.replace("▶", "▼");
+  }else{
+    current.style.display = "none";
+    title.innerHTML = title.innerHTML.replace("▼", "▶");
+  }
 };
-  
+
 async function loadMaterials(){
+  const q = query(
+    collection(db, "materials"),
+    where("subject", "==", "Physics"),
+    where("className", "==", "Class 10"),
+    where("category", "==", "Videos")
+  );
 
-const q = query(
+  const querySnapshot = await getDocs(q);
 
-collection(db,"materials"),
+  container.innerHTML = "";
 
-where("subject","==","Physics"),
+  const chapters = {};
 
-where("className","==","Class 10"),
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const chapter = data.chapterName || "Other Videos";
 
-where("category","==","Videos")
+    if(!chapters[chapter]){
+      chapters[chapter] = [];
+    }
 
-);
+    chapters[chapter].push(data);
+  });
 
-const querySnapshot =
-await getDocs(q);
+  Object.keys(chapters).forEach((chapter) => {
+    const id = safeId(chapter);
 
-container.innerHTML = "";
+    container.innerHTML += `
+      <div class="glass chapter-box">
+        <h2
+          class="chapter-title"
+          data-id="${id}"
+          onclick="toggleChapter('${id}')">
+          ▶ 📂 ${chapter} (${chapters[chapter].length} Videos)
+        </h2>
 
-const chapters = {};
+        <div
+          id="chapter-${id}"
+          class="chapter-content"
+          style="display:none;">
+        </div>
+      </div>
+    `;
 
-querySnapshot.forEach((doc)=>{
+    const chapterDiv = document.getElementById("chapter-" + id);
 
-const data =
-doc.data();
+    chapters[chapter].forEach((data) => {
+      chapterDiv.innerHTML += `
+        <a
+          href="video-player.html?url=${encodeURIComponent(data.pdfLink)}"
+          class="video-card glass">
 
-const chapter =
-data.chapterName || "Other Videos";
+          <img
+            src="${data.thumbnail || 'https://picsum.photos/300/200'}"
+            class="video-thumb">
 
-if(!chapters[chapter]){
+          <div class="video-title">
+            ${data.title}
+          </div>
 
-chapters[chapter] = [];
-
-}
-
-chapters[chapter].push(data);
-
-});
-
-for(const chapter in chapters){
-
-container.innerHTML += `
-
-<div class="glass chapter-box">
-
-<h2
-class="chapter-title"
-onclick="toggleChapter('${chapter.replace(/\s/g,'')}')">
-
-▶ 📂 ${chapter}
-
-</h2>
-
-<div
-id="chapter-${chapter.replace(/\s/g,'')}"
-class="chapter-content"
-style="display:none;">
-
-</div>
-
-</div>
-
-`;
-
-const chapterDiv =
-document.getElementById(
-`chapter-${chapter.replace(/\s/g,'')}`
-);
-
-chapters[chapter].forEach((data)=>{
-
-chapterDiv.innerHTML += `
-
-<div class="material-row glass">
-
-<img
-src="${data.thumbnail || 'https://picsum.photos/300/200'}"
-class="list-thumb">
-
-<div>
-
-<h3>
-${data.title}
-</h3>
-
-<a
-href="video-player.html?url=${encodeURIComponent(data.pdfLink)}">
-
-▶ Watch Video
-
-</a>
-
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
+        </a>
+      `;
+    });
+  });
 }
 
 loadMaterials();
-
-</script>
+    </script>
 </body>
 
 </html>

@@ -111,6 +111,44 @@ document.getElementById(
 "materialsContainer"
 );
 
+  window.toggleChapter = function(id){
+
+const allChapters =
+document.querySelectorAll(
+".chapter-content"
+);
+
+allChapters.forEach((chapter)=>{
+
+if(
+chapter.id !== `chapter-${id}`
+){
+
+chapter.style.display = "none";
+
+}
+
+});
+
+const current =
+document.getElementById(
+`chapter-${id}`
+);
+
+if(
+current.style.display === "none"
+){
+
+current.style.display = "block";
+
+}else{
+
+current.style.display = "none";
+
+}
+
+};
+  
 async function loadMaterials(){
 
 const q = query(
@@ -154,19 +192,20 @@ for(const chapter in chapters){
 
 container.innerHTML += `
 
-<div class="glass"
-style="
-margin:20px;
-padding:20px;
-border-radius:15px;
-">
+<div class="glass chapter-box">
 
-<h2>
-📂 ${chapter}
+<h2
+class="chapter-title"
+onclick="toggleChapter('${chapter.replace(/\s/g,'')}')">
+
+▶ 📂 ${chapter}
+
 </h2>
 
 <div
-id="chapter-${chapter.replace(/\s/g,'')}">
+id="chapter-${chapter.replace(/\s/g,'')}"
+class="chapter-content"
+style="display:none;">
 
 </div>
 

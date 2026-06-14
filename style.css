@@ -1442,3 +1442,21 @@ font-size:22px;
 font-weight:bold;
 color:#38bdf8;
 }
+
+.announcement-section{
+max-width:1000px;
+margin:30px auto;
+padding:25px;
+border-radius:25px;
+text-align:center;
+}
+
+.announcement-card{
+margin:12px 0;
+padding:15px;
+border-radius:15px;
+background:rgba(255,255,255,0.08);
+color:white;
+font-weight:500;
+text-align:left;
+}

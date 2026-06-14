@@ -1293,3 +1293,49 @@ transform:translateX(5px);
 .chapter-content{
 margin-top:15px;
 }
+
+.chapter-box{
+  margin:20px;
+  padding:20px;
+  border-radius:18px;
+}
+
+.chapter-title{
+  cursor:pointer;
+  user-select:none;
+  font-size:22px;
+  color:white;
+}
+
+.chapter-content{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:20px;
+}
+
+.video-card{
+  display:block;
+  text-decoration:none;
+  border-radius:16px;
+  overflow:hidden;
+  transition:0.3s;
+}
+
+.video-card:hover{
+  transform:translateY(-5px);
+}
+
+.video-thumb{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+.video-title{
+  padding:12px;
+  color:white;
+  font-weight:600;
+  text-align:center;
+}

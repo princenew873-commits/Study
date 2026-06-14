@@ -141,6 +141,21 @@ id="materialsList">
 
 </div>
 
+  <div class="auth-box glass">
+
+<h2>📢 Add Announcement</h2>
+
+<input
+type="text"
+id="announcementText"
+placeholder="Write announcement here">
+
+<button id="announcementBtn">
+Post Announcement
+</button>
+
+  </div>
+
 <script type="module">
 
 import { db }
@@ -153,7 +168,9 @@ addDoc,
 getDocs,
 deleteDoc,
 updateDoc,
-doc
+doc,
+orderBy,
+query
 
 }
 
@@ -339,6 +356,33 @@ loadMaterials();
 };
 
 loadMaterials();
+
+  const announcementBtn =
+document.getElementById("announcementBtn");
+
+announcementBtn.addEventListener("click", async ()=>{
+
+const text =
+document.getElementById("announcementText").value;
+
+if(!text){
+alert("Announcement likho");
+return;
+}
+
+await addDoc(
+collection(db,"announcements"),
+{
+text:text,
+createdAt:Date.now()
+}
+);
+
+alert("Announcement Posted ✅");
+
+document.getElementById("announcementText").value = "";
+
+});
 
 </script>
 

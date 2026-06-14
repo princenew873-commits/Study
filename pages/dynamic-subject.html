@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subject Materials</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+<div class="dashboard-bg"></div>
+
+<nav>
+<h1 class="logo" id="pageTitle">Subject</h1>
+<div class="nav-links">
+<a href="../dashboard.html">Dashboard</a>
+</div>
+</nav>
+
+<section class="welcome-box glass">
+<h2 id="mainHeading">Study Material</h2>
+<p>Select category to access materials.</p>
+</section>
+
+<section class="dashboard-grid" id="categoryGrid"></section>
+
+<footer>Made with ❤️ by Chintu</footer>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const className = params.get("class");
+const subject = params.get("subject");
+
+document.getElementById("pageTitle").innerText = subject + " Resources";
+document.getElementById("mainHeading").innerText = className + " " + subject + " Study Material";
+
+const categories = [
+  ["📘 Notes", "Notes"],
+  ["📝 Short Notes", "Short Notes"],
+  ["📄 PYQs", "PYQ"],
+  ["📑 Sample Papers", "Sample Paper"],
+  ["🎥 Videos", "Videos"]
+];
+
+const grid = document.getElementById("categoryGrid");
+
+categories.forEach(item => {
+  const label = item[0];
+  const category = item[1];
+
+  grid.innerHTML += `
+    <div class="dashboard-card glass">
+      <h2>${label}</h2>
+      <p>Open ${category}</p>
+      <a href="dynamic-materials.html?class=${encodeURIComponent(className)}&subject=${encodeURIComponent(subject)}&category=${encodeURIComponent(category)}">
+        Open
+      </a>
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>

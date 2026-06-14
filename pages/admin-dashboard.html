@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +9,8 @@
 <link rel="stylesheet" href="../style.css">
 
 <style>
-
-#materialsList{
+#materialsList,
+#announcementList{
 max-width:1000px;
 margin:30px auto;
 }
@@ -36,6 +34,7 @@ border-radius:10px;
 
 .material-info{
 flex:1;
+color:white;
 }
 
 .material-actions button{
@@ -55,7 +54,6 @@ color:white;
 background:#e74c3c;
 color:white;
 }
-
 </style>
 
 </head>
@@ -68,80 +66,55 @@ color:white;
 
 <h1>Admin Upload Panel 🚀</h1>
 
-<input
-type="text"
-id="title"
-placeholder="PDF Title">
+<input type="text" id="title" placeholder="PDF / Video Title">
 
-<input
-type="text"
-id="thumbnail"
-placeholder="Thumbnail Image URL">
+<input type="text" id="thumbnail" placeholder="Thumbnail Image URL">
 
-<input
-type="text"
-id="pdfLink"
-placeholder="PDF Link">
+<input type="text" id="pdfLink" placeholder="PDF / Video Link">
 
 <select id="className">
-
 <option>Class 10</option>
 <option>Class 11</option>
 <option>Class 12</option>
 <option>JEE</option>
 <option>NEET</option>
 <option>NDA</option>
-
 </select>
 
 <select id="subject">
-
 <option>Physics</option>
 <option>Chemistry</option>
 <option>Maths</option>
 <option>Biology</option>
 <option>English</option>
-
 </select>
 
 <select id="category">
-
 <option>Notes</option>
 <option>Short Notes</option>
 <option>PYQ</option>
 <option>Sample Paper</option>
 <option>Videos</option>
-
 </select>
+
 <input
 type="text"
 id="chapterName"
 placeholder="Chapter Name (Only For Videos)">
-  
+
 <button id="uploadBtn">
-
 Upload Content
-
 </button>
 
 </div>
 
-<h2
-style="
-text-align:center;
-color:white;
-margin-top:30px;">
-
+<h2 style="text-align:center;color:white;margin-top:30px;">
 📚 Uploaded Materials
-
 </h2>
 
-<div
-id="materialsList">
+<div id="materialsList"></div>
 
-</div>
-
-  <div class="auth-box glass">
+<div class="auth-box glass">
 
 <h2>📢 Add Announcement</h2>
 
@@ -154,26 +127,26 @@ placeholder="Write announcement here">
 Post Announcement
 </button>
 
-  </div>
+</div>
+
+<h2 style="text-align:center;color:white;margin-top:30px;">
+📢 Announcements
+</h2>
+
+<div id="announcementList"></div>
 
 <script type="module">
 
-import { db }
-from "../firebase-config.js";
+import { db } from "../firebase-config.js";
 
 import {
-
 collection,
 addDoc,
 getDocs,
 deleteDoc,
 updateDoc,
-doc,
-orderBy,
-query
-
+doc
 }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const uploadBtn =
@@ -182,11 +155,13 @@ document.getElementById("uploadBtn");
 const materialsList =
 document.getElementById("materialsList");
 
-uploadBtn.addEventListener(
+const announcementBtn =
+document.getElementById("announcementBtn");
 
-"click",
+const announcementList =
+document.getElementById("announcementList");
 
-async ()=>{
+uploadBtn.addEventListener("click", async ()=>{
 
 const title =
 document.getElementById("title").value;
@@ -206,43 +181,46 @@ document.getElementById("subject").value;
 const category =
 document.getElementById("category").value;
 
-  const chapterName =
+const chapterName =
 document.getElementById("chapterName").value;
+
+if(!title || !pdfLink){
+alert("Title aur Link zaroor daalo");
+return;
+}
 
 try{
 
 await addDoc(
 collection(db,"materials"),
 {
-
 title,
 thumbnail,
 pdfLink,
 className,
 subject,
 category,
-  chapterName,
-
+chapterName,
 views:0,
 downloads:0,
 createdAt:Date.now()
-
 }
 );
 
 alert("Content Uploaded ✅");
 
+document.getElementById("title").value = "";
+document.getElementById("thumbnail").value = "";
+document.getElementById("pdfLink").value = "";
+document.getElementById("chapterName").value = "";
+
 loadMaterials();
 
 }catch(error){
-
 alert(error.message);
-
 }
 
-}
-
-);
+});
 
 async function loadMaterials(){
 
@@ -263,7 +241,7 @@ materialsList.innerHTML += `
 <div class="material-card glass">
 
 <img
-src="${data.thumbnail}"
+src="${data.thumbnail || 'https://picsum.photos/200'}"
 onerror="this.src='https://picsum.photos/200'">
 
 <div class="material-info">
@@ -279,11 +257,13 @@ ${data.category}
 </p>
 
 <p>
-Views:
-${data.views || 0}
+📂 ${data.chapterName || "No Chapter"}
+</p>
+
+<p>
+Views: ${data.views || 0}
 |
-Downloads:
-${data.downloads || 0}
+Downloads: ${data.downloads || 0}
 </p>
 
 </div>
@@ -293,17 +273,13 @@ ${data.downloads || 0}
 <button
 class="edit-btn"
 onclick="editMaterial('${material.id}')">
-
 ✏ Edit
-
 </button>
 
 <button
 class="delete-btn"
 onclick="deleteMaterial('${material.id}')">
-
 🗑 Delete
-
 </button>
 
 </div>
@@ -319,12 +295,7 @@ onclick="deleteMaterial('${material.id}')">
 window.deleteMaterial =
 async function(id){
 
-const confirmDelete =
-confirm(
-"Delete this material?"
-);
-
-if(!confirmDelete)
+if(!confirm("Delete this material?"))
 return;
 
 await deleteDoc(
@@ -341,24 +312,54 @@ async function(id){
 const newTitle =
 prompt("Enter New Title");
 
-if(!newTitle)
-return;
+if(!newTitle) return;
+
+const newThumbnail =
+prompt("Enter Thumbnail URL");
+
+if(!newThumbnail) return;
+
+const newPdfLink =
+prompt("Enter PDF / Video Link");
+
+if(!newPdfLink) return;
+
+const newClass =
+prompt("Enter Class: Class 10, Class 11, Class 12, JEE, NEET, NDA");
+
+if(!newClass) return;
+
+const newSubject =
+prompt("Enter Subject: Physics, Chemistry, Maths, Biology, English");
+
+if(!newSubject) return;
+
+const newCategory =
+prompt("Enter Category: Notes, Short Notes, PYQ, Sample Paper, Videos");
+
+if(!newCategory) return;
+
+const newChapter =
+prompt("Enter Chapter Name Optional") || "";
 
 await updateDoc(
 doc(db,"materials",id),
 {
-title:newTitle
+title:newTitle,
+thumbnail:newThumbnail,
+pdfLink:newPdfLink,
+className:newClass,
+subject:newSubject,
+category:newCategory,
+chapterName:newChapter
 }
 );
+
+alert("Material Updated ✅");
 
 loadMaterials();
 
 };
-
-loadMaterials();
-
-  const announcementBtn =
-document.getElementById("announcementBtn");
 
 announcementBtn.addEventListener("click", async ()=>{
 
@@ -382,10 +383,97 @@ alert("Announcement Posted ✅");
 
 document.getElementById("announcementText").value = "";
 
+loadAnnouncements();
+
 });
+
+async function loadAnnouncements(){
+
+const snapshot =
+await getDocs(
+collection(db,"announcements")
+);
+
+announcementList.innerHTML = "";
+
+snapshot.forEach((announcement)=>{
+
+const data =
+announcement.data();
+
+announcementList.innerHTML += `
+
+<div class="material-card glass">
+
+<div class="material-info">
+
+<h3>📢 ${data.text}</h3>
+
+</div>
+
+<div class="material-actions">
+
+<button
+class="edit-btn"
+onclick="editAnnouncement('${announcement.id}')">
+✏ Edit
+</button>
+
+<button
+class="delete-btn"
+onclick="deleteAnnouncement('${announcement.id}')">
+🗑 Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+window.deleteAnnouncement =
+async function(id){
+
+if(!confirm("Delete Announcement?"))
+return;
+
+await deleteDoc(
+doc(db,"announcements",id)
+);
+
+loadAnnouncements();
+
+};
+
+window.editAnnouncement =
+async function(id){
+
+const newText =
+prompt("Enter New Announcement");
+
+if(!newText) return;
+
+await updateDoc(
+doc(db,"announcements",id),
+{
+text:newText
+}
+);
+
+alert("Announcement Updated ✅");
+
+loadAnnouncements();
+
+};
+
+loadMaterials();
+loadAnnouncements();
 
 </script>
 
 </body>
-
 </html>

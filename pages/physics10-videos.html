@@ -184,30 +184,46 @@ async function loadMaterials(){
 
     chapters[chapter].forEach((data) => {
       chapterDiv.innerHTML += `
+container.innerHTML += `
+      <div class="glass chapter-box">
+        <h2
+          class="chapter-title"
+          data-id="${id}"
+          onclick="toggleChapter('${id}')">
+          ▶ 📂 ${chapter} (${chapters[chapter].length} Videos)
+        </h2>
+
+        <div
+          id="chapter-${id}"
+          class="chapter-content"
+          style="display:none;">
+        </div>
+      </div>
+    `;
+
+    const chapterDiv = document.getElementById("chapter-" + id);
+
+    chapters[chapter].forEach((data) => {
+chapterDiv.innerHTML += `
 
 <a
 href="video-player.html?url=${encodeURIComponent(data.pdfLink)}"
 class="video-card">
 
+<div class="thumb-wrap">
 <img
-src="${data.thumbnail}"
+src="${data.thumbnail || 'https://picsum.photos/400/225'}"
 class="video-thumb">
 
-<div class="video-title">
-
-${data.title}
-
+<div class="play-badge">▶</div>
 </div>
 
-<div
-style="
-font-size:12px;
-color:#aaa;
-padding:0 5px 10px;
-">
+<div class="video-title">
+${data.title}
+</div>
 
+<div class="video-meta">
 ${data.subject} • ${data.className}
-
 </div>
 
 </a>

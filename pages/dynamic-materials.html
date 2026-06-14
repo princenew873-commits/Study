@@ -118,7 +118,7 @@ function loadFiles(snapshot){
     container.innerHTML += `
       <div class="material-row glass">
         <img
-          src="${getVideoThumbnail(data)}"
+          src="${data.thumbnail || 'https://picsum.photos/300/200'}"
           class="list-thumb">
 
         <div>

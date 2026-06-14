@@ -184,20 +184,35 @@ async function loadMaterials(){
 
     chapters[chapter].forEach((data) => {
       chapterDiv.innerHTML += `
-        <a
-          href="video-player.html?url=${encodeURIComponent(data.pdfLink)}"
-          class="video-card glass">
 
-          <img
-            src="${data.thumbnail || 'https://picsum.photos/300/200'}"
-            class="video-thumb">
+<a
+href="video-player.html?url=${encodeURIComponent(data.pdfLink)}"
+class="video-card">
 
-          <div class="video-title">
-            ${data.title}
-          </div>
+<img
+src="${data.thumbnail}"
+class="video-thumb">
 
-        </a>
-      `;
+<div class="video-title">
+
+${data.title}
+
+</div>
+
+<div
+style="
+font-size:12px;
+color:#aaa;
+padding:0 5px 10px;
+">
+
+${data.subject} • ${data.className}
+
+</div>
+
+</a>
+
+`;
     });
   });
 }

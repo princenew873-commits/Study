@@ -81,6 +81,31 @@ Choose your course and start learning.
 
 </section>
 
+  <section class="countdown-section glass">
+
+<h2>⏳ Exam Countdown</h2>
+
+<div class="countdown-grid">
+
+<div class="countdown-card">
+<h3>JEE 2027</h3>
+<p id="jeeCountdown">Loading...</p>
+</div>
+
+<div class="countdown-card">
+<h3>NEET 2027</h3>
+<p id="neetCountdown">Loading...</p>
+</div>
+
+<div class="countdown-card">
+<h3>Boards 2027</h3>
+<p id="boardsCountdown">Loading...</p>
+</div>
+
+</div>
+
+  </section>
+  
 <!-- CLASS CARDS -->
 
 <section class="dashboard-grid">
@@ -290,7 +315,28 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 
 <!--End of Tawk.to Script-->
+<script>
 
+function countdown(id, examDate){
+
+const today = new Date();
+const exam = new Date(examDate);
+
+const diff = exam - today;
+
+const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+document.getElementById(id).innerText =
+days > 0 ? days + " Days Left" : "Exam Started";
+
+}
+
+countdown("jeeCountdown", "2027-01-15");
+countdown("neetCountdown", "2027-05-03");
+countdown("boardsCountdown", "2027-02-15");
+
+</script>
+  
 </body>
 </html>
 </body>

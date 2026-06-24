@@ -2095,3 +2095,30 @@ color:white;
 font-weight:bold;
 cursor:pointer;
 }
+
+.nav-action-btn{
+background:linear-gradient(135deg,#38bdf8,#2563eb);
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:14px;
+font-weight:700;
+cursor:pointer;
+box-shadow:0 8px 22px rgba(37,99,235,.35);
+}
+
+.nav-action-btn:hover{
+transform:translateY(-4px) scale(1.03);
+}
+
+@media(max-width:768px){
+.nav-links{
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.nav-action-btn{
+margin:6px;
+padding:11px 18px;
+}
+}

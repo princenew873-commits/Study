@@ -91,6 +91,16 @@ color:white;
 
 <div class="dashboard-bg"></div>
 
+  <div class="auth-box glass">
+
+<h2>👥 Website Visitors</h2>
+
+<h1 id="visitorCount">
+Loading...
+</h1>
+
+  </div>
+
 <div class="auth-box glass">
 
 <h1>Admin Upload Panel 🚀</h1>
@@ -221,7 +231,8 @@ addDoc,
 getDocs,
 deleteDoc,
 updateDoc,
-doc
+doc,
+getDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -610,6 +621,27 @@ alert("Announcement Updated ✅");
 loadAnnouncements();
 
 };
+  async function loadVisitorCount(){
+
+const visitRef =
+doc(db,"siteStats","visits");
+
+const visitSnap =
+await getDoc(visitRef);
+
+if(visitSnap.exists()){
+
+document.getElementById("visitorCount").innerText =
+visitSnap.data().count || 0;
+
+}else{
+
+document.getElementById("visitorCount").innerText =
+0;
+
+}
+
+  }
 
 async function loadRequests(){
 
@@ -714,6 +746,7 @@ loadRequests();
 loadMaterials();
 loadAnnouncements();
 loadRequests();
+loadVisitorCount();
 
 </script>
 

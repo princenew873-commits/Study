@@ -1986,3 +1986,64 @@ color:white;
 font-weight:700;
 cursor:pointer;
 }
+
+.request-section{
+max-width:1100px;
+margin:30px auto;
+padding:25px;
+border-radius:25px;
+text-align:center;
+}
+
+.request-form{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+.request-form input,
+.request-form select,
+.request-form textarea{
+
+width:100%;
+padding:14px;
+border:none;
+outline:none;
+border-radius:14px;
+
+background:rgba(255,255,255,.12);
+color:white;
+
+backdrop-filter:blur(10px);
+}
+
+.request-form textarea{
+grid-column:1/-1;
+min-height:100px;
+resize:none;
+}
+
+#requestBtn{
+grid-column:1/-1;
+
+background:linear-gradient(
+135deg,
+#38bdf8,
+#2563eb
+);
+
+padding:15px;
+border:none;
+border-radius:14px;
+
+font-size:17px;
+font-weight:700;
+color:white;
+
+cursor:pointer;
+}
+
+#requestBtn:hover{
+transform:translateY(-3px);
+}

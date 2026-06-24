@@ -15,12 +15,18 @@
 <div class="dashboard-bg"></div>
 
 <nav>
+
+<button id="openRequest" class="request-icon-btn">
+📩
+</button>
+
 <h1 class="logo">Chintu Study Hub</h1>
 
 <div class="nav-links">
 <a href="index.html">Home</a>
 <a href="pages/login.html">Logout</a>
 </div>
+
 </nav>
 
 <section class="dash-hero glass">
@@ -78,6 +84,18 @@
 Jo notes, PYQ ya video chahiye, yahan request karo.
 </p>
 
+<div id="requestModal" class="request-modal">
+
+<div class="request-section glass request-popup">
+
+<button id="closeRequest" class="close-request">
+✖
+</button>
+
+<h2>📩 Request Material</h2>
+
+<p>Jo notes, PYQ ya video chahiye, yahan request karo.</p>
+
 <div class="request-form">
 
 <select id="requestClass">
@@ -115,8 +133,12 @@ id="requestMessage"
 placeholder="Extra details optional"></textarea>
 
 <button id="requestBtn">
-🚀 Send Request
+Send Request
 </button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -286,6 +308,29 @@ alert("Request Sent ✅");
 document.getElementById("requestTitle").value = "";
 document.getElementById("requestMessage").value = "";
 
+});
+
+  const requestModal =
+document.getElementById("requestModal");
+
+const openRequest =
+document.getElementById("openRequest");
+
+const closeRequest =
+document.getElementById("closeRequest");
+
+openRequest.addEventListener("click", ()=>{
+requestModal.style.display = "flex";
+});
+
+closeRequest.addEventListener("click", ()=>{
+requestModal.style.display = "none";
+});
+
+requestModal.addEventListener("click", (e)=>{
+if(e.target === requestModal){
+requestModal.style.display = "none";
+}
 });
   
 loadAnnouncements();

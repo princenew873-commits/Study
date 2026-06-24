@@ -1,92 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Student Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
-rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
-
 <div class="dashboard-bg"></div>
 
-<!-- FLOATING BOOKS -->
-
-<div class="floating-books">
-
-<span>📚</span>
-<span>📝</span>
-<span>🎓</span>
-<span>📖</span>
-<span>🧪</span>
-
-</div>
-
-<!-- NAVBAR -->
-
 <nav>
-
-<h1 class="logo">
-
-Student Dashboard
-
-</h1>
+<h1 class="logo">Chintu Study Hub</h1>
 
 <div class="nav-links">
-
-<a href="index.html">
-
-Home
-
-</a>
-
-<a href="pages/login.html">
-
-Logout
-
-</a>
-
+<a href="index.html">Home</a>
+<a href="pages/login.html">Logout</a>
 </div>
-
 </nav>
 
-<!-- WELCOME -->
+<section class="dash-hero glass">
 
-<section class="welcome-box glass">
+<div class="dash-hero-text">
+<h1>Welcome Back 👋</h1>
+<p>Learn smarter with Notes, PYQs, Videos and Live Support.</p>
 
-<h2>
+<div class="hero-stats">
+<span>📚 Free Notes</span>
+<span>🎥 Video Lectures</span>
+<span>🚀 JEE • NEET • NDA</span>
+</div>
+</div>
 
-Welcome Back 👋
-
-</h2>
-
-<p>
-
-Choose your course and start learning.
-
-</p>
+<div class="dash-hero-img">
+<img src="https://i.ibb.co/5hpmGVJM/education-horizontal-typography-banner-set-with-learning-knowledge-symbols-flat-illustration-1284-29.jpg">
+</div>
 
 </section>
 
-  <section class="countdown-section glass">
-
+<section class="countdown-section glass">
 <h2>⏳ Exam Countdown</h2>
 
 <div class="countdown-grid">
-
 <div class="countdown-card">
 <h3>JEE 2027</h3>
 <p id="jeeCountdown">Loading...</p>
@@ -101,216 +60,72 @@ Choose your course and start learning.
 <h3>Boards 2027</h3>
 <p id="boardsCountdown">Loading...</p>
 </div>
-
 </div>
+</section>
 
-  </section>
-
-  <section class="announcement-section glass">
-
+<section class="announcement-section glass">
 <h2>📢 Announcements</h2>
-
 <div id="announcementList">
 <p>Loading announcements...</p>
 </div>
+</section>
 
-  </section>
-  
-<!-- CLASS CARDS -->
+<section class="dashboard-grid premium-class-grid">
 
-<section class="dashboard-grid">
-
-<!-- CLASS 10 -->
-
-<div class="dashboard-card glass">
-
+<div class="dashboard-card glass class-card-img">
+<img src="https://i.ibb.co/M5JGPg1n/class-10-th-sticker.png">
 <h2>📘 Class 10</h2>
-
-<p>
-
-CBSE Full Study Material
-
-</p>
-
-<a href="pages/class10.html">
-
-Open
-
-</a>
-
+<p>CBSE Full Study Material</p>
+<a href="pages/class10.html">Open</a>
 </div>
 
-<!-- CLASS 11 -->
-
-<div class="dashboard-card glass">
-
+<div class="dashboard-card glass class-card-img">
+<img src="https://i.ibb.co/0jGJHnWg/16.png">
 <h2>📗 Class 11</h2>
-
-<p>
-
-PCM + PCB Resources
-
-</p>
-
-<a href="pages/class11.html">
-
-Open
-
-</a>
-
+<p>PCM + PCB Resources</p>
+<a href="pages/class11.html">Open</a>
 </div>
 
-<!-- CLASS 12 -->
-
-<div class="dashboard-card glass">
-
+<div class="dashboard-card glass class-card-img">
+<img src="https://i.ibb.co/ycT3spQ8/17.png">
 <h2>📕 Class 12</h2>
-
-<p>
-
-Boards + Competitive Prep
-
-</p>
-
-<a href="pages/class12.html">
-
-Open
-
-</a>
-
+<p>Boards + Competitive Prep</p>
+<a href="pages/class12.html">Open</a>
 </div>
 
-<!-- JEE -->
-
-<div class="dashboard-card glass">
-
+<div class="dashboard-card glass class-card-img">
+<img src="https://i.ibb.co/27nHj2fc/1739901279301.jpg">
 <h2>🚀 JEE</h2>
-
-<p>
-
-Advanced Preparation
-
-</p>
-
-<a href="pages/jee.html">
-
-Open
-
-</a>
-
+<p>Advanced Preparation</p>
+<a href="pages/jee.html">Open</a>
 </div>
 
-<!-- NEET -->
-
-<div class="dashboard-card glass">
-
+<div class="dashboard-card glass class-card-img">
+<img src="https://i.ibb.co/67CyGQcm/1704873157774-NEET-1.png">
 <h2>🩺 NEET</h2>
-
-<p>
-
-Medical Entrance Study
-
-</p>
-
-<a href="pages/neet.html">
-
-Open
-
-</a>
-
+<p>Medical Entrance Study</p>
+<a href="pages/neet.html">Open</a>
 </div>
 
-<!-- NDA -->
-
-<div class="dashboard-card glass">
-
+<div class="dashboard-card glass class-card-img">
+<img src="https://i.ibb.co/8nkBXyH4/NDA-Insignia-Color.jpg">
 <h2>🛡 NDA</h2>
-
-<p>
-
-Defence Exam Preparation
-
-</p>
-
-<a href="pages/nda.html">
-
-Open
-
-</a>
-
+<p>Defence Exam Preparation</p>
+<a href="pages/nda.html">Open</a>
 </div>
 
 </section>
-
-<!-- FEATURE SECTION -->
 
 <section class="feature-section">
-
-<div class="feature-box glass">
-
-<h3>📄 Notes</h3>
-
-<p>
-
-Handwritten topper notes.
-
-</p>
-
-</div>
-
-<div class="feature-box glass">
-
-<h3>📝 PYQs</h3>
-
-<p>
-
-Previous year questions.
-
-</p>
-
-</div>
-
-<div class="feature-box glass">
-
-<h3>🎥 Video Lectures</h3>
-
-<p>
-
-Best teachers lectures.
-
-</p>
-
-</div>
-
-<div class="feature-box glass">
-
-<h3>🤖 AI Chatbot</h3>
-
-<p>
-
-24x7 AI assistant.
-
-</p>
-
-</div>
-
+<div class="feature-box glass"><h3>📄 Notes</h3><p>Handwritten topper notes.</p></div>
+<div class="feature-box glass"><h3>📝 PYQs</h3><p>Previous year questions.</p></div>
+<div class="feature-box glass"><h3>🎥 Video Lectures</h3><p>Best teachers lectures.</p></div>
+<div class="feature-box glass"><h3>🤖 Live Chat</h3><p>24x7 student support.</p></div>
 </section>
 
-<!-- FOOTER -->
-<h1 class="main-heading">
-🆕 Latest Uploads
-</h1>
-
-<div id="latestUploads"
-class="materials-grid">
-
-</div>
 <footer>
-
 Made with ❤️ by Chintu
-
 </footer>
-<!--Start of Tawk.to Script-->
 
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -324,32 +139,23 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 
-<!--End of Tawk.to Script-->
 <script>
-
 function countdown(id, examDate){
-
 const today = new Date();
 const exam = new Date(examDate);
-
 const diff = exam - today;
-
 const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
 document.getElementById(id).innerText =
 days > 0 ? days + " Days Left" : "Exam Started";
-
 }
 
 countdown("jeeCountdown", "2027-01-15");
 countdown("neetCountdown", "2027-05-03");
 countdown("boardsCountdown", "2027-02-15");
-
 </script>
-<script type="module">
 
-import { db }
-from "./firebase-config.js";
+<script type="module">
+import { db } from "./firebase-config.js";
 
 import {
 collection,
@@ -359,52 +165,32 @@ orderBy
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const announcementList =
-document.getElementById("announcementList");
+const announcementList = document.getElementById("announcementList");
 
 async function loadAnnouncements(){
-
-const q = query(
-collection(db,"announcements"),
-orderBy("createdAt","desc")
-);
-
-const snapshot =
-await getDocs(q);
+const q = query(collection(db,"announcements"), orderBy("createdAt","desc"));
+const snapshot = await getDocs(q);
 
 announcementList.innerHTML = "";
 
 if(snapshot.empty){
-
-announcementList.innerHTML =
-"<p>No announcements yet.</p>";
-
+announcementList.innerHTML = "<p>No announcements yet.</p>";
 return;
-
 }
 
 snapshot.forEach((doc)=>{
-
-const data =
-doc.data();
+const data = doc.data();
 
 announcementList.innerHTML += `
-
 <div class="announcement-card">
-
 📌 ${data.text}
-
 </div>
-
 `;
-
 });
-
 }
 
 loadAnnouncements();
-
 </script>
-  
+
 </body>
 </html>

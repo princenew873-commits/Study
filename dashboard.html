@@ -70,6 +70,56 @@
 </div>
 </section>
 
+  <section class="request-section glass">
+
+<h2>📩 Request Material</h2>
+
+<p>Jo notes, PYQ ya video chahiye, yahan request karo.</p>
+
+<div class="request-form">
+
+<select id="requestClass">
+<option>Class 10</option>
+<option>Class 11</option>
+<option>Class 12</option>
+<option>JEE</option>
+<option>NEET</option>
+<option>NDA</option>
+</select>
+
+<select id="requestSubject">
+<option>Physics</option>
+<option>Chemistry</option>
+<option>Maths</option>
+<option>Biology</option>
+<option>English</option>
+</select>
+
+<select id="requestCategory">
+<option>Notes</option>
+<option>Short Notes</option>
+<option>PYQ</option>
+<option>Sample Paper</option>
+<option>Videos</option>
+</select>
+
+<input
+type="text"
+id="requestTitle"
+placeholder="Material name / Chapter name">
+
+<textarea
+id="requestMessage"
+placeholder="Extra details optional"></textarea>
+
+<button id="requestBtn">
+Send Request
+</button>
+
+</div>
+
+  </section>
+
 <section class="dashboard-grid premium-class-grid">
 
 <div class="dashboard-card glass class-card-img">
@@ -161,7 +211,9 @@ import {
 collection,
 getDocs,
 query,
-orderBy
+orderBy,
+addDoc
+  
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -189,6 +241,51 @@ announcementList.innerHTML += `
 });
 }
 
+  const requestBtn =
+document.getElementById("requestBtn");
+
+requestBtn.addEventListener("click", async ()=>{
+
+const className =
+document.getElementById("requestClass").value;
+
+const subject =
+document.getElementById("requestSubject").value;
+
+const category =
+document.getElementById("requestCategory").value;
+
+const title =
+document.getElementById("requestTitle").value.trim();
+
+const message =
+document.getElementById("requestMessage").value.trim();
+
+if(!title){
+alert("Material name / Chapter name likho");
+return;
+}
+
+await addDoc(
+collection(db,"materialRequests"),
+{
+className,
+subject,
+category,
+title,
+message,
+status:"Pending",
+createdAt:Date.now()
+}
+);
+
+alert("Request Sent ✅");
+
+document.getElementById("requestTitle").value = "";
+document.getElementById("requestMessage").value = "";
+
+});
+  
 loadAnnouncements();
 </script>
 

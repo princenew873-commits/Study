@@ -257,5 +257,47 @@ Contact Us
 
 </footer>
 
+  <script type="module">
+
+import { db }
+from "./firebase-config.js";
+
+import {
+doc,
+getDoc,
+setDoc,
+updateDoc,
+increment
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+async function countVisit(){
+
+const visitRef =
+doc(db,"siteStats","visits");
+
+const visitSnap =
+await getDoc(visitRef);
+
+if(visitSnap.exists()){
+
+await updateDoc(visitRef,{
+count: increment(1)
+});
+
+}else{
+
+await setDoc(visitRef,{
+count: 1
+});
+
+}
+
+}
+
+countVisit();
+
+  </script>
+
 </body>
 </html>

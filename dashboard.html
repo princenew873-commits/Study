@@ -16,15 +16,20 @@
 
 <nav>
 
-<button id="openRequest" class="request-icon-btn">
-📩
-</button>
-
 <h1 class="logo">Chintu Study Hub</h1>
 
 <div class="nav-links">
 <a href="index.html">Home</a>
+
+<button id="openAnnouncement" class="nav-action-btn">
+📢 Announcements
+</button>
+
 <a href="pages/login.html">Logout</a>
+
+<button id="openRequest" class="nav-action-btn">
+📩 Request Material
+</button>
 </div>
 
 </nav>
@@ -69,12 +74,23 @@
 </div>
 </section>
 
-<section class="announcement-section glass">
+  <div id="announcementModal" class="request-modal">
+
+<div class="announcement-section glass request-popup">
+
+<button id="closeAnnouncement" class="close-request">
+✖
+</button>
+
 <h2>📢 Announcements</h2>
+
 <div id="announcementList">
 <p>Loading announcements...</p>
 </div>
-</section>
+
+</div>
+
+  </div>
 
 <div id="requestModal" class="request-modal">
 
@@ -233,6 +249,29 @@ addDoc
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const announcementList = document.getElementById("announcementList");
+
+  const announcementModal =
+document.getElementById("announcementModal");
+
+const openAnnouncement =
+document.getElementById("openAnnouncement");
+
+const closeAnnouncement =
+document.getElementById("closeAnnouncement");
+
+openAnnouncement.addEventListener("click", ()=>{
+announcementModal.style.display = "flex";
+});
+
+closeAnnouncement.addEventListener("click", ()=>{
+announcementModal.style.display = "none";
+});
+
+announcementModal.addEventListener("click",(e)=>{
+if(e.target === announcementModal){
+announcementModal.style.display = "none";
+}
+});
 
 async function loadAnnouncements(){
 const q = query(collection(db,"announcements"), orderBy("createdAt","desc"));

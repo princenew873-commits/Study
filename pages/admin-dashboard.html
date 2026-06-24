@@ -161,6 +161,24 @@ document.getElementById("announcementBtn");
 const announcementList =
 document.getElementById("announcementList");
 
+  const categorySelect = document.getElementById("category");
+const chapterInput = document.getElementById("chapterName");
+const linkInput = document.getElementById("pdfLink");
+
+function updateUploadUI(){
+  if(categorySelect.value === "Videos"){
+    chapterInput.style.display = "block";
+    chapterInput.placeholder = "Chapter Name e.g. Unit & Dimensions";
+    linkInput.placeholder = "Video Link / YouTube Link";
+  }else{
+    chapterInput.style.display = "none";
+    linkInput.placeholder = "PDF Link";
+  }
+}
+
+categorySelect.addEventListener("change", updateUploadUI);
+updateUploadUI();
+
 uploadBtn.addEventListener("click", async ()=>{
 
 const title =
